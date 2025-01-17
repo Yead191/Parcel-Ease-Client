@@ -3,18 +3,38 @@ import { Link, NavLink } from "react-router-dom";
 import { PiSignIn, PiSignOut } from "react-icons/pi";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button"
+import useAuth from "@/hooks/useAuth";
+import { MdDashboard } from 'react-icons/md';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const [theme, setTheme] = useState("light");
+    const { user, logOut } = useAuth()
 
     // const toggleTheme = () => {
     //     const newTheme = theme === "light" ? "dark" : "light";
     //     setTheme(newTheme);
     //     document.documentElement.setAttribute("data-theme", newTheme);
     // };
+    // console.log(user);
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                toast.success('Log Out Successful')
+            })
+            .catch(error => {
+                toast.error({ error })
+            })
+    }
 
     const links = (
-        <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 text-white">
+        <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 ">
             <li>
                 <NavLink to="/" className="hover:text-pink-600">
                     Home
@@ -89,11 +109,54 @@ const Navbar = () => {
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden lg:block ">
+                <div className="hidden lg:block text-white">
                     <div className=" flex items-center gap-6 ">
 
                         {links}
-                        <Link to={'/register'} className={buttonVariants({ variant: "outline" })}>Register</Link>
+                        {/* dropdown */}
+                        <div className="dropdown-end flex items-center justify-center">
+                            <div className="w-12 rounded-full ">
+                                {user?.photoURL ? (
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <button className="btn btn-ghost btn-circle avatar">
+                                                <div className="w-10 h-10 rounded-full">
+                                                    <img
+                                                        alt="User Avatar"
+                                                        src={user?.photoURL}
+                                                        className="object-cover w-10 h-full rounded-full"
+                                                    />
+                                                </div>
+                                            </button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent className="w-52 mt-3">
+                                            <DropdownMenuItem>
+                                                <p className="text-slate-800">{user?.displayName}</p>
+                                            </DropdownMenuItem>
+                                            <Link to={`/dashboard`} >
+                                                <DropdownMenuItem className='text-black inline-flex items-center gap-2 w-full'>
+                                                    <MdDashboard className='text-2xl' /> Dashboard
+                                                </DropdownMenuItem>
+                                            </Link>
+                                            {/* Add additional items here if needed */}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                ) : (
+                                    <div></div>
+                                )}
+                            </div>
+                        </div>
+
+
+                        {
+                            user && user.email ?
+                                <Button onClick={handleLogout}>Sign Out</Button>
+
+                                :
+
+                                <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
+                        }
+
 
                     </div>
 
@@ -101,8 +164,48 @@ const Navbar = () => {
                 </div>
 
                 {/* Theme Toggle */}
-                <div className="lg:hidden">
-                    <Link to={'/register'} className={buttonVariants({ variant: "outline" })}>Register</Link>
+                <div className="lg:hidden flex items-center gap-2">
+                    <div className="dropdown-end flex items-center justify-center">
+                        <div className="w-12 rounded-full ">
+                            {user?.photoURL ? (
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <button className="btn btn-ghost btn-circle avatar">
+                                            <div className="w-10 h-10 rounded-full ">
+                                                <img
+                                                    alt="User Avatar"
+                                                    src={user?.photoURL}
+                                                    className="object-cover w-10 h-full rounded-full"
+                                                />
+                                            </div>
+                                        </button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-52 mt-3">
+                                        <DropdownMenuItem>
+                                            <p className="text-slate-800">{user?.displayName}</p>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <Link to={`/dashboard`} className='btn btn-ghost'>
+                                                <MdDashboard className='text-2xl' /> Dashboard
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        {/* Add additional items here if needed */}
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+                    </div>
+
+                    {
+                        user && user.email ?
+                            <Button onClick={handleLogout}>Sign Out</Button>
+
+                            :
+
+                            <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
+                    }
 
                 </div>
 

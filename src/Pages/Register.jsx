@@ -11,16 +11,19 @@ import regAnimation from '../assets/register.json'
 import { Helmet } from 'react-helmet-async';
 import { useForm } from "react-hook-form";
 import { IoWarningOutline } from 'react-icons/io5';
+import useAuth from '@/hooks/useAuth';
+import useAxiosPublic from '@/hooks/useAxiosPublic';
 
 
 
 
 const Register = () => {
 
-    const { handleSubmit, register, reset, formState: { errors } } = useForm();
-    // const axiosSecure = useAxiosPublic()
 
-    // const { creteUser, updateUserProfile } = useContext(AuthContext)
+    const { handleSubmit, register, reset, formState: { errors } } = useForm();
+    const axiosPublic = useAxiosPublic()
+
+    const { creteUser, updateUserProfile } = useAuth()
 
 
     const [showPass, setShowPass] = useState(false)
@@ -29,41 +32,40 @@ const Register = () => {
     const location = useLocation()
     const from = location.state || '/'
 
+    const onSubmit = values => {
+        // console.log(values)
+        creteUser(values.email, values.password)
+            .then(res => {
+                const user = res.user
+                console.log(user);
+                const userInfo = {
+                    name: values.name,
+                    email: values.email,
+                    photo: values.photo,
+                    createdAt: user?.metadata?.creationTime,
+                    role: 'user'
+                }
+                // console.log(userInfo);
+                updateUserProfile(values.name, values.photo)
+                    .then(() => {
+                        toast.success(`Successfully Created Account as: ${values.name}`)
+                        reset()
+                        navigate(from)
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res);
+                                if (res.data.insertedId) {
 
-    // console.log(location);
-    // const onSubmit = values => {
-    //     // console.log(values)
-    //     creteUser(values.email, values.password)
-    //         .then(res => {
-    //             const user = res.user
-    //             // console.log(user);
-    //             const userInfo = {
-    //                 name: values.name,
-    //                 email: values.email,
-    //                 photo: values.photo,
-    //                 createdAt: user?.metadata?.creationTime
-    //             }
-    //             // console.log(userInfo);
-    //             updateUserProfile(values.name, values.photo)
-    //                 .then(() => {
-    //                     toast.success(Successfully Created Account as: ${values.name})
-    //                     reset()
-    //                     navigate(from)
-    //                     axiosSecure.post('/users', userInfo)
-    //                         .then(res => {
-    //                             // console.log(res);
-    //                             if (res.data.insertedId) {
+                                }
 
-    //                             }
+                            })
 
-    //                         })
+                    })
+                    .catch(error => toast.error(error))
+            })
+            .catch(error => toast.error(error.message))
 
-    //                 })
-    //                 .catch(error => toast.error(error))
-    //         })
-    //         .catch(error => toast.error(error.message))
-
-    // };
+    };
 
 
     return (
@@ -73,7 +75,7 @@ const Register = () => {
             transition={{ duration: 1.5, ease: 'easeInOut' }}
             className="flex items-center justify-center min-h-screen bg-base-100">
             <Helmet>
-                <title >Register | Bistro Boss</title>
+                <title >Register | Parcel Ease</title>
             </Helmet>
             <div className="flex flex-col lg:flex-row shadow-lg rounded-lg bg-white max-w-4xl w-full">
                 {/* Left Section */}
@@ -93,7 +95,7 @@ const Register = () => {
                     <h2 className="text-3xl font-bold mb-4 text-gray-800">Create Account</h2>
                     {/* <SocialLogin></SocialLogin> */}
 
-                    <form className='w-full'>
+                    <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
                         <input
 
                             {...register("name", {

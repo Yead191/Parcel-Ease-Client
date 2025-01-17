@@ -1,0 +1,151 @@
+import React from "react";
+import {
+    FaHome,
+    FaCartPlus,
+    FaHistory,
+    FaRegCalendarAlt,
+    FaEdit,
+    FaConciergeBell,
+    FaShoppingBag,
+    FaEnvelope,
+} from "react-icons/fa";
+import { Link, NavLink, Outlet } from "react-router-dom";
+
+import { FaBars, FaUsers } from "react-icons/fa6";
+import { ImSpoonKnife } from "react-icons/im";
+import { IoMdMenu } from "react-icons/io";
+import { BsFillJournalBookmarkFill } from "react-icons/bs";
+
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"; // Make sure these components are correctly imported
+
+const Dashboard = () => {
+    const isAdmin = false;
+
+    return (
+        <div className="h-screen flex">
+            {/* Sidebar for Large Devices */}
+            <div style={{
+                background:
+                    "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
+            }} className=" bg-[#D5A368] *:text-white lg:flex flex-col w-64 hidden ">
+                <div className="p-6 font-bold text-center ">
+                    <h1 style={{ fontVariant: "small-caps" }} className="text-xl lg:text-3xl">Parcel Ease</h1>
+                </div>
+
+                {/* Sidebar Links */}
+                <div className=" ">
+                    {isAdmin ? (
+                        <ul className="space-y-4 p-4 text-white">
+                            <SidebarLink to="/dashboard/adminHome" icon={<FaHome />} label="Admin Home" />
+                            <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
+                            <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
+                            <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
+                            <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
+                        </ul>
+                    ) : (
+                        <ul className="space-y-4 p-4 text-white">
+                            <SidebarLink to="/dashboard/userHome" icon={<FaHome />} label="User Home" />
+                            <SidebarLink to="/dashboard/reservation" icon={<FaRegCalendarAlt />} label="Reservation" />
+                            <SidebarLink to="/dashboard/payment" icon={<FaHistory />} label="Payment" />
+                            <SidebarLink to="/dashboard/cart" icon={<FaCartPlus />} label={`My Cart`} />
+                            <SidebarLink to="/dashboard/add-review" icon={<FaEdit />} label="Add Review" />
+                            <SidebarLink to="/dashboard/payment-history" icon={<FaConciergeBell />} label="Payment History" />
+                        </ul>
+                    )}
+                </div>
+
+                {/* Footer Links */}
+                <hr className="border-t border-white mx-4" />
+                <ul className="space-y-4 p-4 text-white lg:text-xl">
+                    <SidebarLink to="/" icon={<FaHome />} label="Home" />
+                    <SidebarLink to="/menu" icon={<FaBars />} label="Menu" />
+                    <SidebarLink to="/order/salad" icon={<FaShoppingBag />} label="Shop" />
+                    <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
+                </ul>
+            </div>
+
+            {/* Top Navbar */}
+            <div style={{
+                background:
+                    "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
+            }} className="lg:hidden p-4  text-white flex flex-row-reverse items-center justify-between fixed z-10 w-full">
+                <Link style={{ fontVariant: 'small-caps' }} to="/" className="text-xl font-bold text-white">
+                    Parcel Ease
+                </Link>
+                <Sheet>
+                    {/* Drawer Trigger Button */}
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" className="text-white">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                className="h-6 w-6 stroke-current"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
+                            </svg>
+                        </Button>
+                    </SheetTrigger>
+
+                    {/* Drawer Content */}
+                    <SheetContent side="left" className="bg-gray-50 text-gray-800">
+                        <div className="p-4">
+                            <h5 className="text-lg font-semibold text-gray-500 uppercase mb-4">
+                                Services
+                            </h5>
+                            {/* Links for small screens */}
+                            <ul className="space-y-4 ">
+                                {isAdmin ? (
+                                    <>
+                                        <SidebarLink to="/dashboard/adminHome" icon={<FaHome />} label="Admin Home" />
+                                        <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
+                                        <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
+                                        <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
+                                        <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <SidebarLink to="/dashboard/userHome" icon={<FaHome />} label="User Home" />
+                                        <SidebarLink to="/dashboard/reservation" icon={<FaRegCalendarAlt />} label="Reservation" />
+                                        <SidebarLink to="/dashboard/payment" icon={<FaHistory />} label="Payment" />
+                                        <SidebarLink to="/dashboard/cart" icon={<FaCartPlus />} label="My Cart" />
+                                        <SidebarLink to="/dashboard/add-review" icon={<FaEdit />} label="Add Review" />
+                                        <SidebarLink to="/dashboard/payment-history" icon={<FaConciergeBell />} label="Payment History" />
+                                    </>
+                                )}
+                            </ul>
+                        </div>
+                    </SheetContent>
+                </Sheet>
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-grow flex flex-col lg:ml-64 mt-20 lg:mt-0">
+                <Outlet />
+            </div>
+        </div>
+    );
+};
+
+const SidebarLink = ({ to, icon, label }) => (
+    <li>
+        <NavLink 
+        style={{ fontVariant: "small-caps" }}
+            to={to}
+            className={({ isActive }) =>
+                `flex items-center gap-3 ${isActive ? "text-slate-800 text-md lg:text-xl opacity-100" : "text-white opacity-70"
+                }`
+            }
+        >
+            {icon} <span>{label}</span>
+        </NavLink>
+    </li>
+);
+
+export default Dashboard;
