@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { IoWarningOutline } from 'react-icons/io5';
 import useAuth from '@/hooks/useAuth';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
+import SocialLogin from '@/components/SocialLogin';
 
 
 
@@ -43,18 +44,18 @@ const Register = () => {
                     email: values.email,
                     photo: values.photo,
                     createdAt: user?.metadata?.creationTime,
-                    role: 'user'
+                    role: 'User'
                 }
                 // console.log(userInfo);
                 updateUserProfile(values.name, values.photo)
                     .then(() => {
                         toast.success(`Successfully Created Account as: ${values.name}`)
                         reset()
-                        navigate(from)
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 console.log(res);
                                 if (res.data.insertedId) {
+                                    navigate(from)
 
                                 }
 
@@ -93,7 +94,7 @@ const Register = () => {
                 {/* Right Section */}
                 <div className="p-8 lg:w-1/2 flex flex-col justify-center items-center">
                     <h2 className="text-3xl font-bold mb-4 text-gray-800">Create Account</h2>
-                    {/* <SocialLogin></SocialLogin> */}
+                    <SocialLogin></SocialLogin>
 
                     <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
                         <input

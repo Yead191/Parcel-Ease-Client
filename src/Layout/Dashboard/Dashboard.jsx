@@ -8,7 +8,10 @@ import {
     FaConciergeBell,
     FaShoppingBag,
     FaEnvelope,
+    FaBook,
+    FaUser,
 } from "react-icons/fa";
+import { LiaEdit } from "react-icons/lia";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { FaBars, FaUsers } from "react-icons/fa6";
@@ -20,49 +23,52 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"; // Make sure these components are correctly imported
 
 const Dashboard = () => {
-    const isAdmin = false;
+    const isAdmin = true;
 
     return (
-        <div className="h-screen flex">
+        <div className="h-screen flex cinzel">
             {/* Sidebar for Large Devices */}
-            <div style={{
-                background:
-                    "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
-            }} className=" bg-[#D5A368] *:text-white lg:flex flex-col w-64 hidden ">
-                <div className="p-6 font-bold text-center ">
-                    <h1 style={{ fontVariant: "small-caps" }} className="text-xl lg:text-3xl">Parcel Ease</h1>
-                </div>
+            <div className="w-64 hidden lg:block">
 
-                {/* Sidebar Links */}
-                <div className=" ">
-                    {isAdmin ? (
-                        <ul className="space-y-4 p-4 text-white">
-                            <SidebarLink to="/dashboard/adminHome" icon={<FaHome />} label="Admin Home" />
-                            <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
-                            <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
-                            <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
-                            <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
-                        </ul>
-                    ) : (
-                        <ul className="space-y-4 p-4 text-white">
-                            <SidebarLink to="/dashboard/userHome" icon={<FaHome />} label="User Home" />
-                            <SidebarLink to="/dashboard/reservation" icon={<FaRegCalendarAlt />} label="Reservation" />
-                            <SidebarLink to="/dashboard/payment" icon={<FaHistory />} label="Payment" />
-                            <SidebarLink to="/dashboard/cart" icon={<FaCartPlus />} label={`My Cart`} />
-                            <SidebarLink to="/dashboard/add-review" icon={<FaEdit />} label="Add Review" />
-                            <SidebarLink to="/dashboard/payment-history" icon={<FaConciergeBell />} label="Payment History" />
-                        </ul>
-                    )}
-                </div>
+                <div style={{
+                    background:
+                        "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
+                }} className="  *:text-white lg:flex flex-col w-64 hidden min-h-screen fixed z-10">
+                    <div className="p-6 font-bold text-center ">
+                        <h1 style={{ fontVariant: "small-caps" }} className="text-xl lg:text-3xl">Parcel Ease</h1>
+                    </div>
 
-                {/* Footer Links */}
-                <hr className="border-t border-white mx-4" />
-                <ul className="space-y-4 p-4 text-white lg:text-xl">
-                    <SidebarLink to="/" icon={<FaHome />} label="Home" />
-                    <SidebarLink to="/menu" icon={<FaBars />} label="Menu" />
-                    <SidebarLink to="/order/salad" icon={<FaShoppingBag />} label="Shop" />
-                    <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
-                </ul>
+                    {/* Sidebar Links */}
+                    <div className=" ">
+                        {isAdmin ? (
+                            <ul className="space-y-4 p-4 text-white">
+                                <SidebarLink to="/dashboard/statistics" icon={<FaHome />} label="Statistics" />
+                                <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
+                                <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
+                                <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
+                                <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
+                                <SidebarLink to="/dashboard/profile" icon={<FaUser />} label="Admin Profile" />
+
+                            </ul>
+                        ) : (
+                            <ul className="space-y-4 p-4 text-white">
+                                <SidebarLink to="/dashboard/profile" icon={<FaHome />} label="User Home" />
+                                <SidebarLink to="/dashboard/book-parcel" icon={<FaBook />} label="Book Parcel" />
+                                <SidebarLink to="/dashboard/my-parcel" icon={<LiaEdit />} label="My Parcels" />
+
+                            </ul>
+                        )}
+                    </div>
+
+                    {/* Footer Links */}
+                    <hr className="border-t border-white mx-4" />
+                    <ul className="space-y-4 p-4 text-white lg:text-xl">
+                        <SidebarLink to="/" icon={<FaHome />} label="Home" />
+                        <SidebarLink to="/menu" icon={<FaBars />} label="Menu" />
+                        <SidebarLink to="/order/salad" icon={<FaShoppingBag />} label="Shop" />
+                        <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
+                    </ul>
+                </div>
             </div>
 
             {/* Top Navbar */}
@@ -103,16 +109,17 @@ const Dashboard = () => {
                             <ul className="space-y-4 ">
                                 {isAdmin ? (
                                     <>
-                                        <SidebarLink to="/dashboard/adminHome" icon={<FaHome />} label="Admin Home" />
+
                                         <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
                                         <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
                                         <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
                                         <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
+                                        <SidebarLink to="/dashboard/profile" icon={<FaUser />} label="Admin Profile" />
                                     </>
                                 ) : (
                                     <>
                                         <SidebarLink to="/dashboard/userHome" icon={<FaHome />} label="User Home" />
-                                        <SidebarLink to="/dashboard/reservation" icon={<FaRegCalendarAlt />} label="Reservation" />
+                                        <SidebarLink to="/dashboard/book-parcel" icon={<FaBook />} label="Book Parcel" />
                                         <SidebarLink to="/dashboard/payment" icon={<FaHistory />} label="Payment" />
                                         <SidebarLink to="/dashboard/cart" icon={<FaCartPlus />} label="My Cart" />
                                         <SidebarLink to="/dashboard/add-review" icon={<FaEdit />} label="Add Review" />
@@ -126,7 +133,7 @@ const Dashboard = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-grow flex flex-col lg:ml-64 mt-20 lg:mt-0">
+            <div className="flex-grow flex flex-col  p-2">
                 <Outlet />
             </div>
         </div>
@@ -135,11 +142,11 @@ const Dashboard = () => {
 
 const SidebarLink = ({ to, icon, label }) => (
     <li>
-        <NavLink 
-        style={{ fontVariant: "small-caps" }}
+        <NavLink
+            style={{ fontVariant: "small-caps" }}
             to={to}
             className={({ isActive }) =>
-                `flex items-center gap-3 ${isActive ? "text-slate-800 text-md lg:text-xl opacity-100" : "text-white opacity-70"
+                `flex items-center gap-3 ${isActive ? "text-white border p-2 rounded-lg bg-black lg:text-md opacity-100" : "text-slate-800 lg:text-white opacity-60 hover:text-pink-600"
                 }`
             }
         >
@@ -148,4 +155,4 @@ const SidebarLink = ({ to, icon, label }) => (
     </li>
 );
 
-export default Dashboard;
+export default Dashboard; 

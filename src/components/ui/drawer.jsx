@@ -13,7 +13,7 @@ const Drawer = ({ children, className, ...props }) => (
         )}`}
       >
         {children}
-      </Dialog.Content>
+      </Dialog.Content> 
     </Dialog.Portal>
   </Dialog.Root>
 );

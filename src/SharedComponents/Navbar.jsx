@@ -5,6 +5,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button"
 import useAuth from "@/hooks/useAuth";
 import { MdDashboard } from 'react-icons/md';
+import userimg from '../assets/user.png'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -133,7 +134,7 @@ const Navbar = () => {
                                             <DropdownMenuItem>
                                                 <p className="text-slate-800">{user?.displayName}</p>
                                             </DropdownMenuItem>
-                                            <Link to={`/dashboard`} >
+                                            <Link to={`/dashboard/profile`} >
                                                 <DropdownMenuItem className='text-black inline-flex items-center gap-2 w-full'>
                                                     <MdDashboard className='text-2xl' /> Dashboard
                                                 </DropdownMenuItem>
@@ -142,7 +143,25 @@ const Navbar = () => {
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 ) : (
-                                    <div></div>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <button className="btn btn-ghost btn-circle avatar">
+                                                <div className="w-10 h-10 rounded-full ">
+                                                    <img
+                                                        alt="User Avatar"
+                                                        src={user?.displayName|| userimg}
+                                                        className="object-cover w-10 h-full rounded-full"
+                                                    />
+                                                </div>
+                                            </button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent className="w-52 mt-3">
+                                            <DropdownMenuItem>
+                                                
+                                            </DropdownMenuItem>
+
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                 )}
                             </div>
                         </div>
@@ -185,7 +204,7 @@ const Navbar = () => {
                                             <p className="text-slate-800">{user?.displayName}</p>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
-                                            <Link to={`/dashboard`} className='btn btn-ghost'>
+                                            <Link to={`/dashboard/profile`} className='btn btn-ghost'>
                                                 <MdDashboard className='text-2xl' /> Dashboard
                                             </Link>
                                         </DropdownMenuItem>
@@ -193,7 +212,25 @@ const Navbar = () => {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                             ) : (
-                                <div></div>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <button className="btn btn-ghost btn-circle avatar">
+                                            <div className="w-10 h-10 rounded-full ">
+                                                <img
+                                                    alt="User Avatar"
+                                                    src={userimg}
+                                                    className="object-cover w-10 h-full rounded-full"
+                                                />
+                                            </div>
+                                        </button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-52 mt-3">
+                                        <DropdownMenuItem>
+                                            <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
+                                        </DropdownMenuItem>
+
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             )}
                         </div>
                     </div>

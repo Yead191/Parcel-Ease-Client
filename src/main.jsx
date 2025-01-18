@@ -7,14 +7,20 @@ import router from './Routes/Router'
 import { Toaster } from 'react-hot-toast'
 import { HelmetProvider } from 'react-helmet-async'
 import AuthProvider from './Provider/AuthProvider'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <HelmetProvider>
-        <Toaster></Toaster>
-        <RouterProvider router={router} />
-      </HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+
+        <HelmetProvider>
+          <Toaster></Toaster>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+      </QueryClientProvider>
     </AuthProvider>
 
 
