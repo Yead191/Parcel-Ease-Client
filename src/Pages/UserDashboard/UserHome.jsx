@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '@/hooks/useAuth';
 
 
 const imageUploadKey = import.meta.env.VITE_Image_Upload_Token
@@ -28,6 +29,7 @@ const UserHome = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [loading, setLoading] = useState(false)
     const [users, refetch, isLoading] = useUser()
+    const { updateUserProfile } = useAuth()
     const user = users[0]
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
@@ -69,6 +71,7 @@ const UserHome = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    updateUserProfile(updatedData.name, updatedData.photo)
                     setIsDialogOpen(false);
                 }
             })

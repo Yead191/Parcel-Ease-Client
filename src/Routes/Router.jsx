@@ -11,6 +11,9 @@ import BookParcel from "@/Pages/UserDashboard/BookParcel";
 import MyParcel from "@/Pages/UserDashboard/MyParcel";
 import UpdateParcel from "@/Pages/UserDashboard/UpdateParcel";
 import AllUsers from "@/Pages/AdminDashboard/AllUsers";
+import AllParcel from "@/Pages/AdminDashboard/AllParcel";
+import AllDeliveryMan from "@/Pages/AdminDashboard/AllDeliveryMan";
+import MyDelivery from "@/Pages/DeliveryDashboard/MyDelivery";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +56,20 @@ const router = createBrowserRouter([
       {
         path: 'users',
         element: <AllUsers></AllUsers>
+      },
+      {
+        path: 'all-parcel',
+        element: <AllParcel></AllParcel>
+      },
+      {
+        path: 'delivery-men',
+        element: <AllDeliveryMan></AllDeliveryMan>
+      },
+
+      //Delivery man routes
+      {
+        path: 'my-delivery',
+        element: <MyDelivery></MyDelivery>
       },
     ]
   },

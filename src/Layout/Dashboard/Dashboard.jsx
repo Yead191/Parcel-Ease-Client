@@ -23,7 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"; // Make sure these components are correctly imported
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const isAdmin = false;
+    const isDeliveryMan = true
 
     return (
         <div className="h-screen flex cinzel">
@@ -40,32 +41,42 @@ const Dashboard = () => {
 
                     {/* Sidebar Links */}
                     <div className=" ">
-                        {isAdmin ? (
+                        {
+                            isAdmin &&
                             <ul className="space-y-4 p-4 text-white">
                                 <SidebarLink to="/dashboard/statistics" icon={<FaHome />} label="Statistics" />
-                                <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
-                                <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
-                                <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
+                                <SidebarLink to="/dashboard/all-parcel" icon={<IoMdMenu />} label="All Parcel" />
+                                <SidebarLink to="/dashboard/delivery-men" icon={<BsFillJournalBookmarkFill />} label="All Delivery Man" />
                                 <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
                                 <SidebarLink to="/dashboard/profile" icon={<FaUser />} label="Admin Profile" />
 
                             </ul>
-                        ) : (
+                        }
+                        {
+                            isDeliveryMan &&
+                            <ul className="space-y-4 p-4 text-white">
+                                <SidebarLink to="/dashboard/my-delivery" icon={<FaBook />} label="My Delivery List" />
+                                <SidebarLink to="/dashboard/my-reviews" icon={<LiaEdit />} label="My Reviews" />
+                                <SidebarLink to="/dashboard/profile" icon={<FaHome />} label="My Profile" />
+
+                            </ul>
+
+                        }
+
+                        {!isAdmin && !isDeliveryMan &&
                             <ul className="space-y-4 p-4 text-white">
                                 <SidebarLink to="/dashboard/profile" icon={<FaHome />} label="User Home" />
                                 <SidebarLink to="/dashboard/book-parcel" icon={<FaBook />} label="Book Parcel" />
                                 <SidebarLink to="/dashboard/my-parcel" icon={<LiaEdit />} label="My Parcels" />
 
                             </ul>
-                        )}
+                        }
                     </div>
 
                     {/* Footer Links */}
                     <hr className="border-t border-white mx-4" />
-                    <ul className="space-y-4 p-4 text-white lg:text-xl">
+                    <ul className="space-y-4 p-4 text-white lg:text-md">
                         <SidebarLink to="/" icon={<FaHome />} label="Home" />
-                        <SidebarLink to="/menu" icon={<FaBars />} label="Menu" />
-                        <SidebarLink to="/order/salad" icon={<FaShoppingBag />} label="Shop" />
                         <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
                     </ul>
                 </div>
@@ -136,7 +147,7 @@ const Dashboard = () => {
             <div className="flex-grow flex flex-col  p-2">
                 <Outlet />
             </div>
-        </div>
+        </div >
     );
 };
 

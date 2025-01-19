@@ -33,7 +33,7 @@ import useParcel from '@/hooks/useParcel';
 const ParcelTable = ({ parcels }) => {
     const axiosSecure = useAxiosSecure()
     const [statusFilter, setStatusFilter] = useState('');
-    // console.log(parcels);
+    console.log(parcels);
     const [, refetch, isLoading] = useParcel()
 
 
@@ -82,7 +82,7 @@ const ParcelTable = ({ parcels }) => {
                     className="p-2 border rounded"
                 >
                     <option value="">All</option>
-                    <option value="In Transit">In Transit</option>
+                    <option value="InTransit">In Transit</option>
                     <option value="Pending">Pending</option>
                     <option value="Delivered">Delivered</option>
                     <option value="Cancelled">Cancelled</option>
@@ -98,7 +98,7 @@ const ParcelTable = ({ parcels }) => {
                             <th className="p-2 border">Req. Delivery Date</th>
                             <th className="p-2 border">Approx. Delivery Date</th>
                             <th className="p-2 border">Booking Date</th>
-                            <th className="p-2 border">Delivery Man ID</th>
+                            <th className="p-2 border">Delivery Man</th>
                             <th className="p-2 border">Status</th>
                             <th className="p-2 border">Action</th>
                         </tr>
@@ -108,12 +108,16 @@ const ParcelTable = ({ parcels }) => {
                             <tr key={parcel._id}>
                                 <td className="p-2 border ">{parcel?.parcelType}</td>
                                 <td className="p-2 border">{parcel?.deliveryDate}</td>
-                                <td className="p-2 border">{parcel?.approxDeliveryDate}</td>
+                                <td className="p-2 border">
+                                    {parcel?.approxDeliveryDate
+                                        ? new Date(parcel.approxDeliveryDate).toLocaleDateString("en-GB")
+                                        : ""}
+                                </td>
                                 <td className="p-2 border text-center">{parcel?.bookingDate}</td>
-                                <td className="p-2 border">{parcel?.deliveryManId}</td>
+                                <td className="p-2 border">{parcel?.deliveryName}</td>
                                 <td className={`p-2 border text-center ${parcel.status === "Cancelled" ? 'text-red-500' : 'text-slate-800'}`}>{parcel?.status}</td>
                                 <td className="p-2 border flex gap-2 justify-center items-center">
-                                    <Button disabled={parcel.status === "Cancelled"} className={buttonVariants({ size: "sm" })}>
+                                    <Button disabled={parcel.status === "Cancelled" || parcel.status === "Delivered"} className={buttonVariants({ size: "sm" })}>
                                         <Link to={`/dashboard/update-parcel/${parcel._id}`}>
                                             <FaEdit />
                                         </Link>
@@ -121,11 +125,21 @@ const ParcelTable = ({ parcels }) => {
                                     <Button disabled={parcel.status === "Cancelled"} className={buttonVariants({ size: "sm" })}>
                                         <MdOutlinePayment />
                                     </Button>
-                                    <Button disabled={parcel.status === "Cancelled"} onClick={() => handleCancel(parcel._id)}
-                                        className={`${buttonVariants({ size: "sm", variant: "secondary" })} bg-red-500 hover:bg-red-600 text-white `}
-                                    >
-                                        Cancel
-                                    </Button>
+                                    {
+                                        parcel.status === "Delivered" ?
+                                            <Button size="sm" className="bg-green-500">
+                                                Review
+                                            </Button>
+
+                                            :
+
+                                            <Button disabled={parcel.status === "Cancelled" || parcel.status === "Delivered"} onClick={() => handleCancel(parcel._id)}
+                                                className={`${buttonVariants({ size: "sm", variant: "secondary" })} bg-red-500 hover:bg-red-600 text-white `}
+                                            >
+                                                Cancel
+                                            </Button>
+                                    }
+
                                 </td>
                             </tr>
                         ))}
