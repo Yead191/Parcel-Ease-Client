@@ -136,8 +136,15 @@ const UserHome = () => {
                                 <span className="font-semibold">Address: </span>
                                 {user?.address}
                             </p>
-                            <p className="text-sm mt-4 text-center">
-
+                            <p className="text-sm">
+                                <span className="font-semibold">Member Since: </span>
+                                {user?.createdAt}
+                            </p>
+                            <p className="text-sm mt-4">
+                                {
+                                    user?.role === "DeliveryMan" &&
+                                    <p>Total Parcel Delivered: {user?.totalDelivered} </p>
+                                }
                             </p>
                             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                 <DialogTrigger asChild>

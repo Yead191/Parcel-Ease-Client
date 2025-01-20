@@ -19,7 +19,7 @@ const MyParcel = () => {
     //     }
     // })
     const [parcels, refetch, isLoading] = useParcel()
-    console.log(parcels);
+    // console.log(parcels);
     if (loading || isLoading) {
         return <div className="flex flex-col  justify-center items-center min-h-screen">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
@@ -29,7 +29,7 @@ const MyParcel = () => {
     return (
         <div>
             <SectionHeading heading={'My Parcels'}></SectionHeading>
-            <ParcelTable parcels={parcels}></ParcelTable>
+            <ParcelTable  parcels={parcels}></ParcelTable>
         </div>
     );
 };

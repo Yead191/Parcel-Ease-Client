@@ -20,7 +20,7 @@ import { IoMdMenu } from "react-icons/io";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"; // Make sure these components are correctly imported
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 
 const Dashboard = () => {
     const isAdmin = false;

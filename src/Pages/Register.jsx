@@ -49,13 +49,13 @@ const Register = () => {
                 // console.log(userInfo);
                 updateUserProfile(values.name, values.photo)
                     .then(() => {
+                        navigate(from)
                         toast.success(`Successfully Created Account as: ${values.name}`)
                         reset()
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 console.log(res);
                                 if (res.data.insertedId) {
-                                    navigate(from)
 
                                 }
 

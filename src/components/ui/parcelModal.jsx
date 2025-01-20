@@ -29,7 +29,7 @@ export function ParcelModal({ value, refetch, status }) {
             approxDelivery: selectedDate,
         }
         // const formValues = Object.fromEntries(formData.entries());
-        console.log(deliveryInfo, value);
+        // console.log(deliveryInfo, value);
         axiosSecure.patch(`/manage-parcel/${value}`, deliveryInfo)
             .then(res => {
                 // console.log(res.data);

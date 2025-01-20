@@ -1,5 +1,5 @@
 import SectionHeading from '@/components/SectionHeading';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
     Table,
@@ -16,19 +16,32 @@ import useAuth from '@/hooks/useAuth';
 import { FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import LocationModal from '@/components/LocationModal';
 
 const MyDelivery = () => {
     const axiosSecure = useAxiosSecure()
+    const [modalOpen, setModalOpen] = useState(false);
+    const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
-    const { user } = useAuth()
-    const { data: myDelivery = [], refetch } = useQuery({
+
+
+    const { user, loading } = useAuth()
+
+
+
+    const { data: myDelivery = [], isLoading, refetch } = useQuery({
         queryKey: ['myDelivery'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/my-delivery?email=${user.email}`)
             return res.data
         }
     })
-    // console.log(myDelivery);
+
+    const openLocationModal = (lat, lon) => {
+        setLocation({ latitude: lat, longitude: lon });
+        setModalOpen(true);
+    };
+    console.log(myDelivery);
     const handleCancel = id => {
         console.log(id);
         Swal.fire({
@@ -94,6 +107,13 @@ const MyDelivery = () => {
         });
     }
 
+    if (loading) {
+        return <div className="flex flex-col  justify-center items-center min-h-screen">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
+            </div>
+        </div>
+    }
+
 
     return (
         <div>
@@ -136,14 +156,21 @@ const MyDelivery = () => {
                                     <TableCell>{delivery?.deliveryAddress}</TableCell>
 
                                     <TableCell className="text-right flex flex-col md:flex-row gap-2">
-                                        <Button disabled={delivery?.status === "Cancelled"} className="bg-blue-400" size="sm" >
+                                        <Button
+                                            onClick={() => openLocationModal(delivery?.latitude || 0, delivery?.longitude || 0)}
+                                            disabled={delivery?.status === "Cancelled"}
+                                            className="bg-blue-400"
+                                            size="sm"
+                                        >
                                             Location
                                         </Button>
 
                                         <Button disabled={delivery?.status === "Cancelled" || delivery?.status === "Delivered"} onClick={() => handleCancel(delivery?._id)}
                                             className={`${buttonVariants({ size: "sm", variant: "secondary" })} bg-red-500 hover:bg-red-600 text-white `}
                                         >
-                                            Cancel
+                                            {
+                                                delivery?.status === "Cancelled" ? 'Cancelled' : 'Cancel'
+                                            }
                                         </Button>
                                         <Button onClick={() => handleDelivery(delivery)} disabled={delivery?.status === "Cancelled" || delivery?.status === "Delivered"} className={`${delivery?.status === "Delivered" ? 'bg-gray-600' : 'bg-green-400'} `} size="sm">
                                             {
@@ -158,6 +185,13 @@ const MyDelivery = () => {
                     </Table>
                 </div>
             </div>
+            {/* Modal */}
+            <LocationModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                latitude={location.latitude}
+                longitude={location.longitude}
+            />
         </div>
     );
 };

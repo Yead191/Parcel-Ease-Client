@@ -6,34 +6,13 @@ import { MdOutlinePayment } from 'react-icons/md';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useParcel from '@/hooks/useParcel';
+import ReviewModal from './ReviewModal';
 
-// Sample data (replace with your actual data source)
-// const parcels = [
-//     {
-//         id: 1,
-//         parcelType: 'Standard',
-//         reqDeliveryDate: '2023-06-15',
-//         approxDeliveryDate: '2023-06-17',
-//         bookingDate: '2023-06-10',
-//         deliveryManId: 'DM001',
-//         status: 'In Transit'
-//     },
-//     {
-//         id: 2,
-//         parcelType: 'Express',
-//         reqDeliveryDate: '2023-06-14',
-//         approxDeliveryDate: '2023-06-14',
-//         bookingDate: '2023-06-13',
-//         deliveryManId: 'DM002',
-//         status: 'Delivered'
-//     },
-//     // Add more sample data as needed
-// ];
 
 const ParcelTable = ({ parcels }) => {
     const axiosSecure = useAxiosSecure()
     const [statusFilter, setStatusFilter] = useState('');
-    console.log(parcels);
+    // console.log(parcels);
     const [, refetch, isLoading] = useParcel()
 
 
@@ -127,9 +106,8 @@ const ParcelTable = ({ parcels }) => {
                                     </Button>
                                     {
                                         parcel.status === "Delivered" ?
-                                            <Button size="sm" className="bg-green-500">
-                                                Review
-                                            </Button>
+                                            <ReviewModal refetch={refetch}
+                                                parcel={parcel}></ReviewModal>
 
                                             :
 

@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
 import useDelivery from '@/hooks/useDelivery';
+import { Star } from 'lucide-react';
 
 
 const AllDeliveryMan = () => {
@@ -49,6 +50,19 @@ const AllDeliveryMan = () => {
                                     <TableCell className="font-medium">{delivery?.name}</TableCell>
                                     <TableCell className=" md:table-cell">{delivery?.phone}</TableCell>
                                     <TableCell className=" sm:table-cell">{delivery?.totalDelivered}</TableCell>
+                                    <TableCell className="sm:table-cell">
+                                        <div className="flex items-center gap-1">
+                                            {Array.from({ length: 5 }, (_, i) => (
+                                                <Star
+                                                    key={i}
+                                                    className={`h-4 w-4 ${i < Math.round(delivery?.totalRating / delivery?.reviewCount)
+                                                            ? "text-yellow-400"
+                                                            : "text-gray-300"
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </TableCell>
 
 
                                 </TableRow>
