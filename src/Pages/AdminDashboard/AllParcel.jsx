@@ -25,38 +25,25 @@ import useAxiosSecure from "@/hooks/useAxiosSecure"
 import useManageParcel from "@/hooks/useManageParcel"
 import SectionHeading from "@/components/SectionHeading"
 import { ParcelModal } from "@/components/ui/parcelModal"
+import { useState } from "react"
+import { Input } from "@/components/ui/input"
+import toast from "react-hot-toast"
+import { useEffect } from "react"
 
 export default function AllParcel() {
 
 
-    // const parcels = [
-    //     {
-    //         userName: "Jewel Mia",
-    //         userPhone: "+8801684321082",
-    //         bookingDate: "2024-06-08T10:39:38.665Z",
-    //         deliveryDate: "2024-06-11",
-    //         cost: 100,
-    //         status: "Delivered"
-    //     },
-    //     {
-    //         userName: "Jewel Mia",
-    //         userPhone: "+8801684321085",
-    //         bookingDate: "2024-06-08T10:40:12.337Z",
-    //         deliveryDate: "2024-06-14",
-    //         cost: 50,
-    //         status: "Delivered"
-    //     },
-    //     {
-    //         userName: "Jewel official",
-    //         userPhone: "+8801684321082",
-    //         bookingDate: "2024-06-09T11:44:50.601Z",
-    //         deliveryDate: "2024-06-22",
-    //         cost: 50,
-    //         status: "Cancelled"
-    //     },
-    //     // Add more parcel data as needed
-    // ]
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
+
     const [parcels, loading, refetch] = useManageParcel()
+
+    const [filteredParcels, setFilteredParcels] = useState();
+
+    // Update `filteredParcels` whenever `parcels` changes (initial load)
+    useEffect(() => {
+        setFilteredParcels(parcels || []);
+    }, [parcels]);
 
     // console.log(parcels);
     const getStatusBadgeColor = (status) => {
@@ -73,6 +60,34 @@ export default function AllParcel() {
                 return 'bg-gray-500 hover:bg-gray-600'
         }
     }
+    const axiosSecure = useAxiosSecure();
+
+    const handleSearch = async () => {
+        if (fromDate && toDate) {
+            try {
+                const from = new Date(fromDate).toISOString();
+                const to = new Date(toDate).toISOString();
+
+                const response = await axiosSecure.get("/parcels/search", {
+                    params: { from, to },
+                });
+
+                setFilteredParcels(response.data);
+                refetch()
+
+            } catch (error) {
+                console.error("Error fetching filtered parcels:", error);
+            }
+        } else {
+            toast.error("Please select both From and To dates.");
+        }
+    };
+    if (loading) {
+        return <div className="flex flex-col  justify-center items-center min-h-screen">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
+            </div>
+        </div>
+    }
 
     return (
         <div className="container mx-auto  px-4 ">
@@ -80,45 +95,35 @@ export default function AllParcel() {
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl font-bold">Total Parcel: {parcels?.length}</h1>
 
-                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                    <div className="space-y-2 w-full sm:w-auto">
-                        {/* <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className={cn(
-                                        "w-full sm:w-[300px] justify-start text-left font-normal",
-                                        !date && "text-muted-foreground"
-                                    )}
-                                >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {date?.from ? (
-                                        date.to ? (
-                                            <>
-                                                {format(date.from, "LLL dd, y")} -{" "}
-                                                {format(date.to, "LLL dd, y")}
-                                            </>
-                                        ) : (
-                                            format(date.from, "LLL dd, y")
-                                        )
-                                    ) : (
-                                        <span>Select date range</span>
-                                    )}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    initialFocus
-                                    mode="range"
-                                    defaultMonth={date?.from}
-                                    selected={date}
-                                    onSelect={setDate}
-                                    numberOfMonths={1}
+                {/* Date Filter Section */}
+                <div className="flex flex-col md:flex-row md:items-end gap-2">
+                    <div className="space-y-2">
+                        <div className="flex gap-4">
+                            {/* From Date */}
+                            <div className="flex flex-col">
+                                <label className="text-sm font-medium mb-1">From Date</label>
+                                <Input
+                                    type="date"
+                                    value={fromDate}
+                                    onChange={(e) => setFromDate(e.target.value)}
+                                    className="w-full sm:w-auto"
                                 />
-                            </PopoverContent>
-                        </Popover> */}
+                            </div>
+                            {/* To Date */}
+                            <div className="flex flex-col">
+                                <label className="text-sm font-medium mb-1">To Date</label>
+                                <Input
+                                    type="date"
+                                    value={toDate}
+                                    onChange={(e) => setToDate(e.target.value)}
+                                    className="w-full sm:w-auto"
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <Button className="w-full sm:w-auto">Search</Button>
+                    <Button onClick={handleSearch} className="w-2/4 md:w-auto">
+                        Search
+                    </Button>
                 </div>
 
                 <div className="rounded-md border overflow-x-auto mb-20">
@@ -138,7 +143,7 @@ export default function AllParcel() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {parcels.map((parcel, index) => (
+                            {filteredParcels?.map((parcel, index) => (
                                 <TableRow key={parcel._id}>
                                     <TableCell className="font-medium">{parcel?.name}</TableCell>
                                     <TableCell className="hidden md:table-cell">{parcel?.number}</TableCell>

@@ -23,8 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 
 const Dashboard = () => {
-    const isAdmin = false;
-    const isDeliveryMan = true
+    const isAdmin = true;
+    const isDeliveryMan = false
 
     return (
         <div className="h-screen flex cinzel">
