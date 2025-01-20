@@ -4,121 +4,108 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth.jsx';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 const CheckoutForm = ({ parcel }) => {
-    // console.log(parcel);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const stripe = useStripe();
     const elements = useElements();
-    const { user } = useAuth()
-    const [error, setError] = useState('')
-    const [transaction, setTransaction] = useState('')
-    const [clientSecret, setClientSecret] = useState('')
-    const axiosSecure = useAxiosSecure()
-    // const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    const { user } = useAuth();
+    const [error, setError] = useState('');
+    const [transaction, setTransaction] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
+    const [showConfetti, setShowConfetti] = useState(false);
+    const axiosSecure = useAxiosSecure();
+
+    const { width, height } = useWindowSize();
 
     useEffect(() => {
         if (parcel.price > 0) {
             axiosSecure.post('/create-payment-intent', { price: parcel.price })
                 .then(res => {
-
-                    // console.log(res);
-                    setClientSecret(res.data.clientSecret)
-                })
+                    setClientSecret(res.data.clientSecret);
+                });
         }
-
-    }, [])
-
-    // console.log(clientSecret);
-
-
+    }, [parcel.price, axiosSecure]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!stripe || !elements) {
-            return;
-        }
+        if (!stripe || !elements) return;
+
         const card = elements.getElement(CardElement);
-        if (card == null) {
-            return;
-        }
+        if (card == null) return;
+
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card
+            card,
         });
+
         if (error) {
-            // console.log(error);
-            setError(error.message)
+            setError(error.message);
         } else {
-            // console.log(paymentMethod);
-            setError('')
+            setError('');
         }
-        //confirm payment 
+
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
-                    name: user?.name || ' anonymous',
-                    email: user?.email || ' anonymous'
-                }
-            }
-        })
+                    name: user?.name || 'Anonymous',
+                    email: user?.email || 'Anonymous',
+                },
+            },
+        });
+
         if (confirmError) {
-            // console.log('confirm error');
-            setError(confirmError.message)
-        }
-        else {
-            // console.log('payment intent', paymentIntent);
-            setError('')
+            setError(confirmError.message);
+        } else {
+            setError('');
             if (paymentIntent.status === 'succeeded') {
                 setTransaction(paymentIntent.id);
+                setShowConfetti(true);
+
                 const payment = {
                     email: user.email,
                     price: parcel.price,
                     parcelName: parcel.parcelType,
                     parcelId: parcel._id,
-                    date: new Date(), //utc convert data, use moment js 
+                    date: new Date(),
                     paymentStatus: 'Paid',
-                    transactionId: paymentIntent.id
-                }
-                const res = await axiosSecure.post('/payments', payment)
-                // console.log(res.data);
+                    transactionId: paymentIntent.id,
+                };
+
+                const res = await axiosSecure.post('/payments', payment);
                 if (res.data.insertedId) {
-                    // refetch()
-                    e.target.reset()
-                    navigate('/dashboard/payment-history')
+                    e.target.reset();
+                    setTimeout(() => {
+                        navigate('/dashboard/payment-history');
+                    }, 3500);
                     Swal.fire({
-                        position: "center",
-                        icon: "success",
+                        position: 'center',
+                        icon: 'success',
                         title: `$${parcel.price} has been Paid Successfully!`,
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1500,
                     });
-
                 }
-
             }
-
         }
     };
 
     return (
-        <div className="flex flex-col   p-4 w-full md:w-11/12 lg:w-10/12 ">
+        <div className="flex flex-col p-4 w-full md:w-11/12 lg:w-10/12">
+            {showConfetti && <Confetti width={width} height={height} />}
 
-
-            <form onSubmit={handleSubmit} className="bg-base-100 p-6 rounded-lg shadow-lg w-11/12 lg:w-8/12 mx-auto ">
-                {/* <h2 className="text-2xl font-semibold text-center mb-6">Payment Details</h2> */}
-                <div style={{ fontVariant: 'small-caps' }} className='space-y-2 flex flex-col md:flex-row  mb-6'>
-                    <h1 className='text-3xl'>Due: {parcel.price}</h1>
-                    {/* <h1 className='text-3xl'>Total Price: {parcel?.price.toFixed(2)}</h1> */}
-
+            <form onSubmit={handleSubmit} className="bg-base-100 p-6 rounded-lg shadow-lg w-11/12 lg:w-8/12 mx-auto">
+                <div style={{ fontVariant: 'small-caps' }} className="space-y-2 flex flex-col md:flex-row mb-6">
+                    <h1 className="text-3xl">Due: {parcel.price}</h1>
                 </div>
 
                 <div className="mb-4">
                     <CardElement
                         options={{
                             style: {
-
                                 base: {
                                     fontSize: '16px',
                                     color: '#424770',
@@ -127,7 +114,7 @@ const CheckoutForm = ({ parcel }) => {
                                     },
                                 },
                                 invalid: {
-                                    color: '#9e2146'
+                                    color: '#9e2146',
                                 },
                             },
                         }}
@@ -141,10 +128,8 @@ const CheckoutForm = ({ parcel }) => {
                 >
                     Pay Now
                 </button>
-                <p className='mt-2 text-sm text-red-500'>{error}</p>
-                {
-                    transaction && <p className='text-sm text-green-500'>Your transaction id: {transaction} </p>
-                }
+                <p className="mt-2 text-sm text-red-500">{error}</p>
+                {transaction && <p className="text-sm text-green-500">Your transaction id: {transaction}</p>}
             </form>
         </div>
     );
