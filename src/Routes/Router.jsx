@@ -15,6 +15,8 @@ import AllParcel from "@/Pages/AdminDashboard/AllParcel";
 import AllDeliveryMan from "@/Pages/AdminDashboard/AllDeliveryMan";
 import MyDelivery from "@/Pages/DeliveryDashboard/MyDelivery";
 import MyReviews from "@/Pages/DeliveryDashboard/MyReviews";
+import Payment from "@/Pages/UserDashboard/Payment";
+import PaymentHistory from "@/Pages/UserDashboard/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,15 @@ const router = createBrowserRouter([
       {
         path: 'my-parcel',
         element: <MyParcel></MyParcel>
+      },
+      {
+        path: 'payment-history',
+        element: <PaymentHistory></PaymentHistory>
+      },
+      {
+        path: 'payment/:id',
+        element: <Payment></Payment>,
+        loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`)
       },
       {
         path: 'update-parcel/:id',

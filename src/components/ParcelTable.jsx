@@ -77,8 +77,10 @@ const ParcelTable = ({ parcels }) => {
                             <th className="p-2 border">Req. Delivery Date</th>
                             <th className="p-2 border">Approx. Delivery Date</th>
                             <th className="p-2 border">Booking Date</th>
+                            <th className="p-2 border">Booking Date</th>
                             <th className="p-2 border">Delivery Man</th>
                             <th className="p-2 border">Status</th>
+                            <th className="p-2 border">Payment Status</th>
                             <th className="p-2 border">Action</th>
                         </tr>
                     </thead>
@@ -93,17 +95,23 @@ const ParcelTable = ({ parcels }) => {
                                         : ""}
                                 </td>
                                 <td className="p-2 border text-center">{parcel?.bookingDate}</td>
+                                <td className="p-2 border text-center">{parcel?.price}</td>
                                 <td className="p-2 border">{parcel?.deliveryName}</td>
                                 <td className={`p-2 border text-center ${parcel.status === "Cancelled" ? 'text-red-500' : 'text-slate-800'}`}>{parcel?.status}</td>
+                                <td className={`p-2 border text-center ${parcel.paymentStatus === "Paid" ? 'text-green-500' : 'text-slate-800'}`}>{parcel?.paymentStatus}</td>
+
                                 <td className="p-2 border flex gap-2 justify-center items-center">
                                     <Button disabled={parcel.status === "Cancelled" || parcel.status === "Delivered"} className={buttonVariants({ size: "sm" })}>
                                         <Link to={`/dashboard/update-parcel/${parcel._id}`}>
                                             <FaEdit />
                                         </Link>
                                     </Button>
-                                    <Button disabled={parcel.status === "Cancelled"} className={buttonVariants({ size: "sm" })}>
-                                        <MdOutlinePayment />
+                                    <Button disabled={parcel.status === "Cancelled" || parcel.paymentStatus === "Paid"} className={buttonVariants({ size: "sm" })}>
+                                        <Link to={`/dashboard/payment/${parcel._id}`}>
+                                            <MdOutlinePayment />
+                                        </Link>
                                     </Button>
+
                                     {
                                         parcel.status === "Delivered" ?
                                             <ReviewModal refetch={refetch}

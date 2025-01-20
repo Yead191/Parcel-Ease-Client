@@ -57,7 +57,8 @@ const BookParcel = () => {
         const bookingInfo = {
             ...formValues,
             bookingDate,
-            status: 'Pending'
+            status: 'Pending',
+            paymentStatus: 'Pending',
         };
         if (formValues.price <= 0) {
             toast.error('Enter a valid Weight');

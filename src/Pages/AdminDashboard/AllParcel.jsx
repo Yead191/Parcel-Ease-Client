@@ -138,6 +138,7 @@ export default function AllParcel() {
                                 <TableHead>Booking Date</TableHead>
                                 <TableHead className="hidden sm:table-cell">Req. Delivery Date</TableHead>
                                 <TableHead>Cost</TableHead>
+                                <TableHead>Assigned To</TableHead>
                                 <TableHead>Status</TableHead>
                                 <TableHead className="text-right">Manage</TableHead>
                             </TableRow>
@@ -150,6 +151,7 @@ export default function AllParcel() {
                                     <TableCell className="hidden sm:table-cell">{parcel?.bookingDate}</TableCell>
                                     <TableCell className="hidden sm:table-cell">{parcel?.deliveryDate}</TableCell>
                                     <TableCell>{parcel?.price}</TableCell>
+                                    <TableCell>{parcel?.deliveryName}</TableCell>
                                     <TableCell>
                                         <Badge className={getStatusBadgeColor(parcel.status)}>
                                             {parcel?.status}

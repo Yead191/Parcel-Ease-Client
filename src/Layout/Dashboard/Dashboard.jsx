@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const isAdmin = false;
     const isDeliveryMan = false
 
     return (
@@ -68,6 +68,7 @@ const Dashboard = () => {
                                 <SidebarLink to="/dashboard/profile" icon={<FaHome />} label="User Home" />
                                 <SidebarLink to="/dashboard/book-parcel" icon={<FaBook />} label="Book Parcel" />
                                 <SidebarLink to="/dashboard/my-parcel" icon={<LiaEdit />} label="My Parcels" />
+                                <SidebarLink to="/dashboard/payment-history" icon={<FaHistory />} label="Payment History" />
 
                             </ul>
                         }
