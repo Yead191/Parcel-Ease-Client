@@ -31,7 +31,7 @@ const AllUsers = () => {
             </div>
         </div>
     }
-    console.log(users);
+    // console.log(users);
 
 
     const handleDeliveryMan = user => {

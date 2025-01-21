@@ -15,7 +15,7 @@ const MyReviews = () => {
             return res.data
         }
     })
-    console.log(MyReviews);
+    // console.log(MyReviews);
     return (
         <div>
             <SectionHeading heading={"My Reviews"}></SectionHeading>

@@ -17,6 +17,10 @@ import MyDelivery from "@/Pages/DeliveryDashboard/MyDelivery";
 import MyReviews from "@/Pages/DeliveryDashboard/MyReviews";
 import Payment from "@/Pages/UserDashboard/Payment";
 import PaymentHistory from "@/Pages/UserDashboard/PaymentHistory";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import Statistics from "@/Pages/AdminDashboard/Statistics";
+import DeliveryRoute from "./DeliveryRoute";
 
 const router = createBrowserRouter([
   {
@@ -40,52 +44,56 @@ const router = createBrowserRouter([
       //user
       {
         path: 'profile',
-        element: <UserHome></UserHome>
+        element: <PrivateRoute><UserHome></UserHome> </PrivateRoute>
       },
       {
         path: 'book-parcel',
-        element: <BookParcel></BookParcel>
+        element: <PrivateRoute> <BookParcel></BookParcel></PrivateRoute>
       },
       {
         path: 'my-parcel',
-        element: <MyParcel></MyParcel>
+        element: <PrivateRoute> <MyParcel></MyParcel></PrivateRoute>
       },
       {
         path: 'payment-history',
-        element: <PaymentHistory></PaymentHistory>
+        element: <PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
       },
       {
         path: 'payment/:id',
-        element: <Payment></Payment>,
+        element: <PrivateRoute><Payment></Payment></PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`)
       },
       {
         path: 'update-parcel/:id',
-        element: <UpdateParcel></UpdateParcel>,
+        element: <PrivateRoute><UpdateParcel></UpdateParcel></PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`)
       },
       //admin
       {
         path: 'users',
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute> <AllUsers></AllUsers></AdminRoute>
+      },
+      {
+        path: 'statistics',
+        element: <AdminRoute> <Statistics></Statistics></AdminRoute>
       },
       {
         path: 'all-parcel',
-        element: <AllParcel></AllParcel>
+        element: <AdminRoute><AllParcel></AllParcel></AdminRoute>
       },
       {
         path: 'delivery-men',
-        element: <AllDeliveryMan></AllDeliveryMan>
+        element: <AdminRoute><AllDeliveryMan></AllDeliveryMan></AdminRoute>
       },
 
       //Delivery man routes
       {
         path: 'my-delivery',
-        element: <MyDelivery></MyDelivery>
+        element: <DeliveryRoute><MyDelivery></MyDelivery></DeliveryRoute>
       },
       {
         path: 'my-reviews',
-        element: <MyReviews></MyReviews>
+        element: <DeliveryRoute><MyReviews></MyReviews></DeliveryRoute>
       },
     ]
   },

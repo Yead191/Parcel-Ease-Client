@@ -21,10 +21,13 @@ import { BsFillJournalBookmarkFill } from "react-icons/bs";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import useAdmin from "@/hooks/useAdmin";
+import useDeliveryMan from "@/hooks/useDeliveryMan";
 
 const Dashboard = () => {
-    const isAdmin = false;
-    const isDeliveryMan = false
+    const [isAdmin] = useAdmin();
+    const [isDeliveryMan] = useDeliveryMan()
+    console.log('admin:', isAdmin, 'delivery:', isDeliveryMan);
 
     return (
         <div className="h-screen flex cinzel">

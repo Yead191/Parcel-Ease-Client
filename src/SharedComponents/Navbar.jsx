@@ -149,16 +149,18 @@ const Navbar = () => {
                                                 <div className="w-10 h-10 rounded-full ">
                                                     <img
                                                         alt="User Avatar"
-                                                        src={user?.displayName|| userimg}
+                                                        src={user?.displayName || userimg}
                                                         className="object-cover w-10 h-full rounded-full"
                                                     />
                                                 </div>
                                             </button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent className="w-52 mt-3">
-                                            <DropdownMenuItem>
-                                                
-                                            </DropdownMenuItem>
+                                            <Link to={`/dashboard/profile`} >
+                                                <DropdownMenuItem className='text-black inline-flex items-center gap-2 w-full'>
+                                                    <MdDashboard className='text-2xl' /> Dashboard
+                                                </DropdownMenuItem>
+                                            </Link>
 
                                         </DropdownMenuContent>
                                     </DropdownMenu>
@@ -204,7 +206,7 @@ const Navbar = () => {
                                             <p className="text-slate-800">{user?.displayName}</p>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
-                                            <Link to={`/dashboard/profile`} className='btn btn-ghost'>
+                                            <Link to={`/dashboard/profile`} className='text-black inline-flex items-center gap-2 w-full'>
                                                 <MdDashboard className='text-2xl' /> Dashboard
                                             </Link>
                                         </DropdownMenuItem>
@@ -218,16 +220,18 @@ const Navbar = () => {
                                             <div className="w-10 h-10 rounded-full ">
                                                 <img
                                                     alt="User Avatar"
-                                                    src={userimg}
+                                                    src={user?.displayName || userimg}
                                                     className="object-cover w-10 h-full rounded-full"
                                                 />
                                             </div>
                                         </button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="w-52 mt-3">
-                                        <DropdownMenuItem>
-                                            <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
-                                        </DropdownMenuItem>
+                                        <Link to={`/dashboard/profile`} >
+                                            <DropdownMenuItem className='text-black inline-flex items-center gap-2 w-full'>
+                                                <MdDashboard className='text-2xl' /> Dashboard
+                                            </DropdownMenuItem>
+                                        </Link>
 
                                     </DropdownMenuContent>
                                 </DropdownMenu>
