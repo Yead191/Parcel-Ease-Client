@@ -29,6 +29,7 @@ import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import toast from "react-hot-toast"
 import { useEffect } from "react"
+import { Helmet } from "react-helmet-async"
 
 export default function AllParcel() {
 
@@ -91,6 +92,9 @@ export default function AllParcel() {
 
     return (
         <div className="container mx-auto  px-4 ">
+            <Helmet>
+                <title>Parcels | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={'All Parcel'}></SectionHeading>
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl font-bold">Total Parcel: {parcels?.length}</h1>

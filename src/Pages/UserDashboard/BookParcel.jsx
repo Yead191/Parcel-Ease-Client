@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 const BookParcel = () => {
@@ -16,6 +17,7 @@ const BookParcel = () => {
     const [loading, setLoading] = useState(false)
     const parcelWeight = useRef(null)
     const [price, setPrice] = useState(0);
+    const navigate = useNavigate()
 
     const calculatePrice = () => {
         const weight = parseFloat(parcelWeight.current.value || 0);
@@ -72,6 +74,7 @@ const BookParcel = () => {
                 e.target.reset()
                 setLoading(false)
                 if (res.data.insertedId) {
+                    navigate('/dashboard/my-parcel')
                     Swal.fire({
                         position: "center",
                         icon: "success",

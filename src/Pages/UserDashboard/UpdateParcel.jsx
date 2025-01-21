@@ -86,7 +86,7 @@ const UpdateParcel = () => {
     return (
         <div>
             <Helmet>
-                <title>Book Parcel | Parcel Ease</title>
+                <title>Update Parcel | Parcel Ease</title>
             </Helmet>
             <SectionHeading heading={"Book a Parcel"}></SectionHeading>
             <form

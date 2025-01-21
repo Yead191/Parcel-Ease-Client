@@ -17,6 +17,7 @@ import { FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import LocationModal from '@/components/LocationModal';
+import { Helmet } from 'react-helmet-async';
 
 const MyDelivery = () => {
     const axiosSecure = useAxiosSecure()
@@ -117,6 +118,9 @@ const MyDelivery = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Delivery | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={'My Delivery List'}></SectionHeading>
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl font-bold"> Total Delivery: ({myDelivery?.length})</h1>

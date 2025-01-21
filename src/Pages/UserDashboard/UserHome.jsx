@@ -19,6 +19,7 @@ import useAxiosPublic from '@/hooks/useAxiosPublic';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useAuth from '@/hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 
 const imageUploadKey = import.meta.env.VITE_Image_Upload_Token
@@ -99,6 +100,9 @@ const UserHome = () => {
 
     return (
         <div className=''>
+            <Helmet>
+                <title>Profile | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={'My Profile'}></SectionHeading>
             <div className=" min-h-[50vh] lg:min-h-[80vh] flex items-center justify-center ">
                 <div className=" w-10/12 mx-auto  bg-gradient-to-r from-pink-500 to-blue-500 rounded-lg p-2 lg:p-8 shadow-lg">

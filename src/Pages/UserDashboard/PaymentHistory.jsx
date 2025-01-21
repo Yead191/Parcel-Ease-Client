@@ -12,11 +12,12 @@ import { Badge } from "@/components/ui/badge"
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import { useQuery } from 'react-query';
 import useAuth from '@/hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 const PaymentHistory = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
-    const { data: payments=[], refetch } = useQuery({
+    const { data: payments = [], refetch } = useQuery({
         queryKey: ['payments'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payment/${user.email}`)
@@ -26,6 +27,9 @@ const PaymentHistory = () => {
     // console.log(payments);
     return (
         <div>
+            <Helmet>
+                <title>Payment History | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={"Payment History"}></SectionHeading>
             <div className="rounded-md border overflow-x-auto mb-20 lg:w-10/12 mx-auto">
                 <Table>

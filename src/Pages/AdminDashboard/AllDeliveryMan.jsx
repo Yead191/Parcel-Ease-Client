@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 
 import useDelivery from '@/hooks/useDelivery';
 import { Star } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 
 const AllDeliveryMan = () => {
@@ -26,6 +27,9 @@ const AllDeliveryMan = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Delivery Men | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={'All Delivery Man'}></SectionHeading>
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl font-bold">Delivery Man ({deliveryMen?.length})</h1>

@@ -4,6 +4,7 @@ import useAuth from '@/hooks/useAuth';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import useParcel from '@/hooks/useParcel';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 
 const MyParcel = () => {
@@ -28,6 +29,9 @@ const MyParcel = () => {
     }
     return (
         <div>
+            <Helmet>
+                            <title>My Parcels | Parcel Ease</title>
+                        </Helmet>
             <SectionHeading heading={'My Parcels'}></SectionHeading>
             <ParcelTable  parcels={parcels}></ParcelTable>
         </div>

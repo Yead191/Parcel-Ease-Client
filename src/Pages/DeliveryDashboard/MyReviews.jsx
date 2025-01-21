@@ -3,6 +3,7 @@ import SectionHeading from '@/components/SectionHeading';
 import useAuth from '@/hooks/useAuth';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 
 const MyReviews = () => {
@@ -18,6 +19,9 @@ const MyReviews = () => {
     // console.log(MyReviews);
     return (
         <div>
+            <Helmet>
+                <title>My Reviews | Parcel Ease</title>
+            </Helmet>
             <SectionHeading heading={"My Reviews"}></SectionHeading>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-11/12 mx-auto gap-3' >
                 {

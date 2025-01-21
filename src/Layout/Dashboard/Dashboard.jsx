@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import useAdmin from "@/hooks/useAdmin";
 import useDeliveryMan from "@/hooks/useDeliveryMan";
+import logo from '/parcel.png'
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
@@ -38,8 +39,9 @@ const Dashboard = () => {
                     background:
                         "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
                 }} className="  *:text-white lg:flex flex-col w-64 hidden min-h-screen fixed z-10">
-                    <div className="p-6 font-bold text-center ">
+                    <div className="p-6 font-bold text-center flex  items-center gap-1">
                         <h1 style={{ fontVariant: "small-caps" }} className="text-xl lg:text-3xl">Parcel Ease</h1>
+                        <img className="w-10" src={logo} alt="" />
                     </div>
 
                     {/* Sidebar Links */}
