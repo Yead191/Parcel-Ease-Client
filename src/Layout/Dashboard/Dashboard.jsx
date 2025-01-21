@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     FaHome,
     FaCartPlus,
@@ -28,7 +28,12 @@ import logo from '/parcel.png'
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
     const [isDeliveryMan] = useDeliveryMan()
-    console.log('admin:', isAdmin, 'delivery:', isDeliveryMan);
+    // console.log('admin:', isAdmin, 'delivery:', isDeliveryMan);
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+
+    const closeDrawer = () => setDrawerOpen(false);
 
     return (
         <div className="h-screen flex cinzel">
@@ -96,7 +101,7 @@ const Dashboard = () => {
                 <Link style={{ fontVariant: 'small-caps' }} to="/" className="text-xl font-bold text-white">
                     Parcel Ease
                 </Link>
-                <Sheet>
+                <Sheet open={isDrawerOpen} onOpenChange={setDrawerOpen}>
                     {/* Drawer Trigger Button */}
                     <SheetTrigger asChild>
                         <Button variant="ghost" className="text-white">
@@ -117,32 +122,104 @@ const Dashboard = () => {
                     </SheetTrigger>
 
                     {/* Drawer Content */}
-                    <SheetContent side="left" className="bg-gray-50 text-gray-800">
+                    <SheetContent
+                        side="left"
+                        className="bg-gray-50 text-gray-800"
+                    >
                         <div className="p-4">
                             <h5 className="text-lg font-semibold text-gray-500 uppercase mb-4">
-                                Services
+                                Menu
                             </h5>
                             {/* Links for small screens */}
-                            <ul className="space-y-4 ">
-                                {isAdmin ? (
-                                    <>
-
-                                        <SidebarLink to="/dashboard/add-items" icon={<ImSpoonKnife />} label="Add Items" />
-                                        <SidebarLink to="/dashboard/manage-items" icon={<IoMdMenu />} label="Manage Items" />
-                                        <SidebarLink to="/dashboard/payment" icon={<BsFillJournalBookmarkFill />} label="Manage Bookings" />
-                                        <SidebarLink to="/dashboard/users" icon={<FaUsers />} label="All Users" />
-                                        <SidebarLink to="/dashboard/profile" icon={<FaUser />} label="Admin Profile" />
-                                    </>
-                                ) : (
-                                    <>
-                                        <SidebarLink to="/dashboard/userHome" icon={<FaHome />} label="User Home" />
-                                        <SidebarLink to="/dashboard/book-parcel" icon={<FaBook />} label="Book Parcel" />
-                                        <SidebarLink to="/dashboard/payment" icon={<FaHistory />} label="Payment" />
-                                        <SidebarLink to="/dashboard/cart" icon={<FaCartPlus />} label="My Cart" />
-                                        <SidebarLink to="/dashboard/add-review" icon={<FaEdit />} label="Add Review" />
-                                        <SidebarLink to="/dashboard/payment-history" icon={<FaConciergeBell />} label="Payment History" />
-                                    </>
-                                )}
+                            {isAdmin && (
+                                <ul className="space-y-4 p-4 text-white">
+                                    <SidebarLink
+                                        to="/dashboard/statistics"
+                                        icon={<FaHome />}
+                                        label="Statistics"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/all-parcel"
+                                        icon={<IoMdMenu />}
+                                        label="All Parcel"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/delivery-men"
+                                        icon={<BsFillJournalBookmarkFill />}
+                                        label="All Delivery Man"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/users"
+                                        icon={<FaUsers />}
+                                        label="All Users"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/profile"
+                                        icon={<FaUser />}
+                                        label="Admin Profile"
+                                        onClick={closeDrawer}
+                                    />
+                                </ul>
+                            )}
+                            {isDeliveryMan && (
+                                <ul className="space-y-4 p-4 text-white">
+                                    <SidebarLink
+                                        to="/dashboard/my-delivery"
+                                        icon={<FaBook />}
+                                        label="My Delivery List"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/my-reviews"
+                                        icon={<LiaEdit />}
+                                        label="My Reviews"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/profile"
+                                        icon={<FaHome />}
+                                        label="My Profile"
+                                        onClick={closeDrawer}
+                                    />
+                                </ul>
+                            )}
+                            {!isAdmin && !isDeliveryMan && (
+                                <ul className="space-y-4 p-4 text-white">
+                                    <SidebarLink
+                                        to="/dashboard/profile"
+                                        icon={<FaHome />}
+                                        label="User Home"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/book-parcel"
+                                        icon={<FaBook />}
+                                        label="Book Parcel"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/my-parcel"
+                                        icon={<LiaEdit />}
+                                        label="My Parcels"
+                                        onClick={closeDrawer}
+                                    />
+                                    <SidebarLink
+                                        to="/dashboard/payment-history"
+                                        icon={<FaHistory />}
+                                        label="Payment History"
+                                        onClick={closeDrawer}
+                                    />
+                                </ul>
+                            )}
+                            {/* Footer Links */}
+                            <hr className="border-t border-white mx-4" />
+                            <ul className="space-y-4 p-4 text-white lg:text-md">
+                                <SidebarLink to="/" icon={<FaHome />} label="Home" />
+                                <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
                             </ul>
                         </div>
                     </SheetContent>
@@ -157,19 +234,23 @@ const Dashboard = () => {
     );
 };
 
-const SidebarLink = ({ to, icon, label }) => (
+const SidebarLink = ({ to, icon, label, onClick }) => (
     <li>
         <NavLink
             style={{ fontVariant: "small-caps" }}
             to={to}
             className={({ isActive }) =>
-                `flex items-center gap-3 ${isActive ? "text-white border p-2 rounded-lg bg-black lg:text-md opacity-100" : "text-slate-800 lg:text-white opacity-60 hover:text-pink-600"
+                `flex items-center gap-3 ${isActive
+                    ? "text-white border p-2 rounded-lg bg-black lg:text-md opacity-100"
+                    : "text-slate-800 lg:text-white opacity-60 hover:text-pink-600"
                 }`
             }
+            onClick={onClick}
         >
             {icon} <span>{label}</span>
         </NavLink>
     </li>
 );
+
 
 export default Dashboard; 

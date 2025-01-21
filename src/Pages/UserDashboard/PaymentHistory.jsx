@@ -31,21 +31,23 @@ const PaymentHistory = () => {
                 <title>Payment History | Parcel Ease</title>
             </Helmet>
             <SectionHeading heading={"Payment History"}></SectionHeading>
-            <div className="rounded-md border overflow-x-auto mb-20 lg:w-10/12 mx-auto">
-                <Table>
+            <div className="rounded-md border overflow-scroll lg:w-10/12 mx-auto mb-20">
+                <Table className="min-w-[600px]">
                     <TableHeader>
-                        <TableRow style={{
-                            background:
-                                "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
-                        }}>
+                        <TableRow
+                            style={{
+                                background:
+                                    "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
+                            }}
+                        >
                             <TableHead>Parcel Type</TableHead>
-                            <TableHead className=" md:table-cell">Paid On</TableHead>
+                            <TableHead className="md:table-cell">Paid On</TableHead>
                             <TableHead>Parcel Price</TableHead>
                             <TableHead className="text-right">Transaction Id</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {payments?.map((payment, index) => (
+                        {payments?.map((payment) => (
                             <TableRow key={payment._id}>
                                 <TableCell className="font-medium">{payment?.parcelName}</TableCell>
                                 <TableCell className="">{payment?.date}</TableCell>
