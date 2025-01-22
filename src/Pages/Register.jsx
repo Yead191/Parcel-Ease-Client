@@ -137,8 +137,8 @@ const Register = () => {
                                     <SelectValue placeholder="Select a role" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="DeliveryMan">Delivery Man</SelectItem>
                                     <SelectItem value="User">User</SelectItem>
+                                    <SelectItem value="DeliveryMan">Delivery Man</SelectItem>
                                 </SelectContent>
                             </Select>
                             {errors.role && (

@@ -6,6 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import useAuth from "@/hooks/useAuth";
 import { MdDashboard } from 'react-icons/md';
 import userimg from '../assets/user.png'
+import logo from '/parcel.png'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -101,13 +102,17 @@ const Navbar = () => {
                     </Sheet>
                 </div>
                 {/* Logo */}
-                <Link
-                    to="/"
-                    className="text-white text-2xl lg:text-3xl font-semibold"
-                    style={{ fontVariant: "small-caps" }}
-                >
-                    Parcel Ease
-                </Link>
+                <div className="flex items-center gap-2">
+
+                    <Link
+                        to="/"
+                        className="text-white text-2xl lg:text-3xl font-semibold"
+                        style={{ fontVariant: "small-caps" }}
+                    >
+                        Parcel Ease
+                    </Link>
+                    <img className="w-12" src={logo} alt="" />
+                </div>
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:block text-white">

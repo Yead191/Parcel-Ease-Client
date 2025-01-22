@@ -31,7 +31,7 @@ const AllDeliveryMan = () => {
                 <title>Delivery Men | Parcel Ease</title>
             </Helmet>
             <SectionHeading heading={'All Delivery Man'}></SectionHeading>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4  md:w-11/12 lg:w-10/12 mx-auto">
                 <h1 className="text-2xl font-bold">Delivery Man ({deliveryMen?.length})</h1>
 
                 <div className="rounded-md border overflow-x-auto">
