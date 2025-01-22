@@ -84,3 +84,7 @@ a.active{
 }
 
 @import "maplibre-gl/dist/maplibre-gl.css";
+
+.select-placeholder {
+  color: gray;
+}

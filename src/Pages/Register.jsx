@@ -14,6 +14,8 @@ import { IoWarningOutline } from 'react-icons/io5';
 import useAuth from '@/hooks/useAuth';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
 import SocialLogin from '@/components/SocialLogin';
+import { Label } from '@/components/ui/label';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 
 
@@ -21,7 +23,7 @@ import SocialLogin from '@/components/SocialLogin';
 const Register = () => {
 
 
-    const { handleSubmit, register, reset, formState: { errors } } = useForm();
+    const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm();
     const axiosPublic = useAxiosPublic()
 
     const { creteUser, updateUserProfile } = useAuth()
@@ -35,27 +37,29 @@ const Register = () => {
 
     const onSubmit = values => {
         // console.log(values)
+
         creteUser(values.email, values.password)
             .then(res => {
                 const user = res.user
-                console.log(user);
+                // console.log(user);
                 const userInfo = {
                     name: values.name,
                     email: values.email,
                     photo: values.photo,
                     createdAt: user?.metadata?.creationTime,
-                    role: 'User'
+                    role: values.role
                 }
                 // console.log(userInfo);
                 updateUserProfile(values.name, values.photo)
                     .then(() => {
-                        navigate(from)
                         toast.success(`Successfully Created Account as: ${values.name}`)
-                        reset()
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
-                                console.log(res);
+                                // console.log(res);
                                 if (res.data.insertedId) {
+                                    reset()
+                                    navigate(from)
+
 
                                 }
 
@@ -122,6 +126,28 @@ const Register = () => {
                         {errors.photo &&
                             <p className='text-red-500 mb-1 inline-flex items-center gap-1 text-sm'> <IoWarningOutline /> Photo URL is Required</p>
                         }
+                        {/* Choose Role Dropdown */}
+                        <div className="w-full mb-4">
+                            <Select
+                                onValueChange={(value) => {
+                                    setValue("role", value);
+                                }}
+                            >
+                                <SelectTrigger className="w-full border rounded-md px-4 py-2">
+                                    <SelectValue placeholder="Select a role" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="DeliveryMan">Delivery Man</SelectItem>
+                                    <SelectItem value="User">User</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            {errors.role && (
+                                <p className="text-red-500 mb-1 inline-flex items-center gap-1 text-sm">
+                                    <IoWarningOutline /> Role is required
+                                </p>
+                            )}
+                        </div>
+
                         <input
                             {...register("email", {
                                 required: "Required",

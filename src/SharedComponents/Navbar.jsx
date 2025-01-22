@@ -210,6 +210,16 @@ const Navbar = () => {
                                                 <MdDashboard className='text-2xl' /> Dashboard
                                             </Link>
                                         </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            {
+                                                user && user.email ?
+                                                    <Button className="w-full" onClick={handleLogout}>Sign Out</Button>
+
+                                                    :
+
+                                                    <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
+                                            }
+                                        </DropdownMenuItem>
                                         {/* Add additional items here if needed */}
                                     </DropdownMenuContent>
                                 </DropdownMenu>
@@ -234,6 +244,7 @@ const Navbar = () => {
                                         </Link>
 
                                     </DropdownMenuContent>
+
                                 </DropdownMenu>
                             )}
                         </div>
@@ -241,9 +252,7 @@ const Navbar = () => {
 
                     {
                         user && user.email ?
-                            <Button onClick={handleLogout}>Sign Out</Button>
-
-                            :
+                            <div></div> :
 
                             <Link style={{ color: "black" }} to={'/login'} className={buttonVariants({ variant: "outline" })}>Login</Link>
                     }

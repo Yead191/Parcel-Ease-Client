@@ -122,10 +122,10 @@ const MyDelivery = () => {
                 <title>My Delivery | Parcel Ease</title>
             </Helmet>
             <SectionHeading heading={'My Delivery List'}></SectionHeading>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 lg:w-11/12 mx-auto ">
                 <h1 className="text-2xl font-bold"> Total Delivery: ({myDelivery?.length})</h1>
 
-                <div className="rounded-md border overflow-x-auto">
+                <div className="rounded-md border overflow-x-scroll mb-16 w-full ">
                     <Table>
                         <TableHeader>
                             <TableRow style={{
@@ -134,7 +134,7 @@ const MyDelivery = () => {
                             }}>
                                 <TableHead>Booked User's Name</TableHead>
                                 <TableHead className=" md:table-cell">Receiver's Name</TableHead>
-                                <TableHead className=" md:table-cell">Booked User's Phone</TableHead>
+                                <TableHead className=" hidden xl:table-cell">Booked User's Phone</TableHead>
                                 <TableHead>Booking Date</TableHead>
                                 <TableHead className=" sm:table-cell">Req. Delivery Date</TableHead>
                                 <TableHead className=" sm:table-cell">Approx. Delivery Date</TableHead>
@@ -148,7 +148,7 @@ const MyDelivery = () => {
                                 <TableRow key={delivery._id}>
                                     <TableCell className="font-medium">{delivery?.name}</TableCell>
                                     <TableCell className=" md:table-cell">{delivery?.receiverName}</TableCell>
-                                    <TableCell className=" md:table-cell">{delivery?.number}</TableCell>
+                                    <TableCell className=" hidden xl:table-cell">{delivery?.number}</TableCell>
                                     <TableCell className=" sm:table-cell">{delivery?.bookingDate}</TableCell>
                                     <TableCell className=" sm:table-cell">{delivery?.deliveryDate}</TableCell>
                                     <TableCell className=" sm:table-cell">
@@ -159,7 +159,7 @@ const MyDelivery = () => {
                                     <TableCell>{delivery?.receiverPhoneNumber}</TableCell>
                                     <TableCell>{delivery?.deliveryAddress}</TableCell>
 
-                                    <TableCell className="text-right flex flex-col md:flex-row gap-2">
+                                    <TableCell className="text-right flex flex-col xl:flex-row gap-2">
                                         <Button
                                             onClick={() => openLocationModal(delivery?.latitude || 0, delivery?.longitude || 0)}
                                             disabled={delivery?.status === "Cancelled"}

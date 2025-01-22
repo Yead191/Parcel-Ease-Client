@@ -101,7 +101,7 @@ const ParcelTable = ({ parcels }) => {
                                 <td className={`p-2 border text-center ${parcel.paymentStatus === "Paid" ? 'text-green-500' : 'text-slate-800'}`}>{parcel?.paymentStatus}</td>
 
                                 <td className="p-2 border flex gap-2 justify-center items-center">
-                                    <Button disabled={parcel.status === "Cancelled" || parcel.status === "Delivered"} className={buttonVariants({ size: "sm" })}>
+                                    <Button disabled={parcel.status !== "Pending"} className={buttonVariants({ size: "sm" })}>
                                         <Link to={`/dashboard/update-parcel/${parcel._id}`}>
                                             <FaEdit />
                                         </Link>
@@ -141,24 +141,35 @@ const ParcelTable = ({ parcels }) => {
                         <p><strong>Req. Delivery Date:</strong> {parcel.reqDeliveryDate}</p>
                         <p><strong>Approx. Delivery Date:</strong> {parcel.approxDeliveryDate}</p>
                         <p><strong>Booking Date:</strong> {parcel.bookingDate}</p>
-                        <p><strong>Delivery Man ID:</strong> {parcel.deliveryManId}</p>
+                        <p><strong>Delivery Man:</strong> {parcel.deliveryName}</p>
                         <p><strong>Status:</strong> {parcel.status}
 
                         </p>
                         <div className=" my-2 flex gap-2  items-center">
-                            <Link to={`/dashboard/update-parcel/${parcel._id}`}>
-                                <Button className={buttonVariants({ size: "sm" })}>
+                            <Button disabled={parcel.status !== "Pending"} className={buttonVariants({ size: "sm" })}>
+                                <Link to={`/dashboard/update-parcel/${parcel._id}`}>
                                     <FaEdit />
-                                </Button>
-                            </Link>
-                            <Button className={buttonVariants({ size: "sm" })}>
-                                <MdOutlinePayment />
+                                </Link>
                             </Button>
-                            <Button onClick={() => handleCancel(parcel._id)}
-                                className={`${buttonVariants({ size: "sm", variant: "secondary" })} bg-red-500 hover:bg-red-600 text-white`}
-                            >
-                                Cancel
+                            <Button disabled={parcel.status === "Cancelled" || parcel.paymentStatus === "Paid"} className={buttonVariants({ size: "sm" })}>
+                                <Link to={`/dashboard/payment/${parcel._id}`}>
+                                    <MdOutlinePayment />
+                                </Link>
                             </Button>
+
+                            {
+                                parcel.status === "Delivered" ?
+                                    <ReviewModal refetch={refetch}
+                                        parcel={parcel}></ReviewModal>
+
+                                    :
+
+                                    <Button disabled={parcel.status === "Cancelled" || parcel.status === "Delivered"} onClick={() => handleCancel(parcel._id)}
+                                        className={`${buttonVariants({ size: "sm", variant: "secondary" })} bg-red-500 hover:bg-red-600 text-white `}
+                                    >
+                                        Cancel
+                                    </Button>
+                            }
                         </div>
                     </div>
                 ))}
