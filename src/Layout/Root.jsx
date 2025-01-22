@@ -8,7 +8,7 @@ const Root = () => {
     return (
         <div className='cinzel flex flex-col min-h-screen'>
             root
-            <nav className='h-[68px]'>
+            <nav className='h-[48px]'>
                 <Navbar></Navbar>
             </nav>
             <main className='flex-grow'>

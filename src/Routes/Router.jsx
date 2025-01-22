@@ -21,6 +21,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import Statistics from "@/Pages/AdminDashboard/Statistics";
 import DeliveryRoute from "./DeliveryRoute";
+import Home from "@/Pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/',
+        element: <Home />
       },
     ]
   },
