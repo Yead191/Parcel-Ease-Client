@@ -18,6 +18,10 @@ import toast from "react-hot-toast";
 const Navbar = () => {
     const [theme, setTheme] = useState("light");
     const { user, logOut } = useAuth()
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+
+    const closeDrawer = () => setDrawerOpen(false);
 
     // const toggleTheme = () => {
     //     const newTheme = theme === "light" ? "dark" : "light";
@@ -43,16 +47,6 @@ const Navbar = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/find-tutors" className="hover:text-pink-600">
-                    Find Tutors
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to="/about" className="hover:text-pink-600">
-                    About Us
-                </NavLink>
-            </li>
-            <li>
                 <NavLink to="/contact" className="hover:text-pink-600">
                     Contact Us
                 </NavLink>
@@ -73,7 +67,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu */}
                 <div className="lg:hidden">
-                    <Sheet>
+                    <Sheet open={isDrawerOpen} onOpenChange={setDrawerOpen}>
                         <SheetTrigger asChild>
                             <button className="text-white">
                                 <svg
@@ -96,7 +90,23 @@ const Navbar = () => {
                                 <h5 className="text-lg font-semibold text-gray-500 uppercase mb-4">
                                     Menu
                                 </h5>
-                                {links}
+                                <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 ">
+                                    <li>
+                                        <NavLink to="/" onClick={closeDrawer}  className="hover:text-pink-600">
+                                            Home
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/contact"  onClick={closeDrawer} className="hover:text-pink-600">
+                                            Contact Us
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/dashboard/profile"  onClick={closeDrawer} className="hover:text-pink-600">
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                </ul>
                             </div>
                         </SheetContent>
                     </Sheet>
