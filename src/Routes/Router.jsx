@@ -22,6 +22,7 @@ import AdminRoute from "./AdminRoute";
 import Statistics from "@/Pages/AdminDashboard/Statistics";
 import DeliveryRoute from "./DeliveryRoute";
 import Home from "@/Pages/Home";
+import About from "@/Pages/About";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/about',
+        element: <About />
       },
     ]
   },

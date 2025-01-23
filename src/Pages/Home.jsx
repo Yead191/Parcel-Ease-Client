@@ -10,6 +10,7 @@ import Banner2 from '@/components/Banner2';
 import FeaturesSection from '@/components/FeaturesSection';
 import ServicesSection from '@/components/ServicesSection';
 import TopDeliveryMan from '@/components/TopDeliveryMan';
+import Stats from '@/components/Stats';
 
 const Home = () => {
     return (
@@ -69,7 +70,9 @@ const Home = () => {
             <Banner2></Banner2>
             <FeaturesSection></FeaturesSection>
             <ServicesSection></ServicesSection>
+            <Stats></Stats>
             <TopDeliveryMan></TopDeliveryMan>
+
         </div>
     );
 };

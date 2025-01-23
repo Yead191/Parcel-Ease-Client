@@ -88,6 +88,7 @@ const Dashboard = () => {
                     <hr className="border-t border-white mx-4" />
                     <ul className="space-y-4 p-4 text-white lg:text-md">
                         <SidebarLink to="/" icon={<FaHome />} label="Home" />
+                        <SidebarLink to="/about" icon={<FaHome />} label="About Us" />
                         <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
                     </ul>
                 </div>
@@ -222,6 +223,7 @@ const Dashboard = () => {
                             <hr className="border-t border-white mx-4" />
                             <ul className="space-y-4 p-4 text-white lg:text-md">
                                 <SidebarLink to="/" icon={<FaHome />} label="Home" />
+                                <SidebarLink to="/about" icon={<FaHome />} label="About Us" />
                                 <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />
                             </ul>
                         </div>

@@ -14,6 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import toast from "react-hot-toast";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
     const [theme, setTheme] = useState("light");
@@ -44,6 +45,11 @@ const Navbar = () => {
             <li>
                 <NavLink to="/" className="hover:text-pink-600">
                     Home
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/about" className="hover:text-pink-600">
+                    About Us
                 </NavLink>
             </li>
             <li>
@@ -92,17 +98,23 @@ const Navbar = () => {
                                 </h5>
                                 <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 ">
                                     <li>
-                                        <NavLink to="/" onClick={closeDrawer}  className="hover:text-pink-600">
+                                        <NavLink to="/" onClick={closeDrawer} className="hover:text-pink-600">
                                             Home
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/contact"  onClick={closeDrawer} className="hover:text-pink-600">
-                                            Contact Us
+                                        <NavLink to="/about" onClick={closeDrawer} className="hover:text-pink-600">
+                                            About Us
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/dashboard/profile"  onClick={closeDrawer} className="hover:text-pink-600">
+                                        <NavLink to="/contact" onClick={closeDrawer} className="hover:text-pink-600">
+                                            Contact Us
+                                        </NavLink>
+                                    </li>
+
+                                    <li>
+                                        <NavLink to="/dashboard/profile" onClick={closeDrawer} className="hover:text-pink-600">
                                             Dashboard
                                         </NavLink>
                                     </li>
@@ -130,6 +142,8 @@ const Navbar = () => {
 
                         {links}
                         {/* dropdown */}
+                        <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" />
+
                         <div className="dropdown-end flex items-center justify-center">
                             <div className="w-12 rounded-full ">
                                 {user?.photoURL ? (
@@ -197,10 +211,13 @@ const Navbar = () => {
                     </div>
 
 
+
                 </div>
 
                 {/* Theme Toggle */}
                 <div className="lg:hidden flex items-center gap-2">
+                    <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" />
+
                     <div className="dropdown-end flex items-center justify-center">
                         <div className="w-12 rounded-full ">
                             {user?.photoURL ? (
@@ -273,6 +290,9 @@ const Navbar = () => {
                     }
 
                 </div>
+
+
+
 
             </div>
         </nav>

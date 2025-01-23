@@ -18,6 +18,7 @@ const FeaturesSection = () => {
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
                         className="text-center flex flex-col items-center">
                         <div className="text-5xl text-blue-500 mb-4">
                             <FaShippingFast />
@@ -28,6 +29,7 @@ const FeaturesSection = () => {
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
                         className="text-center flex flex-col items-center">
                         <div className="text-5xl text-green-500 mb-4">
                             <FaUserShield />
@@ -38,6 +40,7 @@ const FeaturesSection = () => {
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
                         className="text-center flex flex-col items-center">
                         <div className="text-5xl text-yellow-500 mb-4">
                             <FaSyringe />
@@ -48,6 +51,7 @@ const FeaturesSection = () => {
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
                         className="text-center flex flex-col items-center">
                         <div className="text-5xl text-red-500 mb-4">
                             <FaShieldAlt />

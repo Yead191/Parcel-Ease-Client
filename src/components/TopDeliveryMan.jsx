@@ -14,7 +14,7 @@ const TopDeliveryMan = () => {
             return res.data
         }
     })
-    console.log(topDeliveries);
+    // console.log(topDeliveries);
     return (
         <div className='mt-8 mb-16'>
             <motion.div
@@ -49,10 +49,10 @@ const TopDeliveryMan = () => {
                                 {delivery.role}
                             </CardDescription>
                             <div className="mt-3">
-                                <p className="text-sm">
+                                <p className="text-sm font-semibold">
                                     Parcels Delivered: <span className="font-medium">{delivery.totalDelivered}</span>
                                 </p>
-                                <p className="text-sm">
+                                <p className="text-sm font-semibold">
                                     Average Rating: <span className="font-medium">{(delivery.totalRating / delivery.reviewCount).toFixed(2)}/5</span>
                                 </p>
                             </div>

@@ -16,12 +16,20 @@ const Banner2 = () => {
                 transition={{ duration: 0.8 }}
                 className="container mx-auto flex flex-col lg:h-[580px] justify-center lg:flex-row items-center gap-8" ref={ref}>
                 {/* Left Section: Lottie Animation */}
-                <div className=" flex-1">
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    className=" flex-1">
                     <Lottie className='lg:w-[400px] xl:w-[550px]' animationData={deliveryAnimation} loop={true} />
-                </div>
+                </motion.div>
 
                 {/* Right Section: Text Content */}
-                <div className="w-full flex-1 space-y-6">
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    className="w-full flex-1 space-y-6">
                     <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
                         Simplify Your Deliveries with ParcelEase
                     </h2>
@@ -31,7 +39,7 @@ const Banner2 = () => {
                         we make the process seamless and efficient.
                     </p>
                     <Button>Get Started</Button>
-                </div>
+                </motion.div>
             </motion.div>
         </section>
     );
