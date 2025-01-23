@@ -14,6 +14,7 @@ Parcel Ease is a delivery management web application designed to streamline the 
 ### Admin Features:
 - Manage parcels by assigning deliverymen and setting approximate delivery dates.
 - Promote users to admin or deliveryman roles.
+- Check real-time stats on dashboard.
 
 ### Deliveryman Features:
 - View assigned parcels.
