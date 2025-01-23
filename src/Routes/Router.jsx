@@ -23,6 +23,7 @@ import Statistics from "@/Pages/AdminDashboard/Statistics";
 import DeliveryRoute from "./DeliveryRoute";
 import Home from "@/Pages/Home";
 import About from "@/Pages/About";
+import Contact from "@/Pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       },
     ]
   },

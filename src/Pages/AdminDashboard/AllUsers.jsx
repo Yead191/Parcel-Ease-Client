@@ -88,6 +88,35 @@ const AllUsers = () => {
         });
     };
 
+    const handleDeleteUser = user => {
+        console.log(user);
+        Swal.fire({
+            title: `Delete ${user.name}?`,
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/users/delete/${user._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: `${user.name} has been deleted.`,
+                                icon: "success"
+                            });
+                        }
+
+                    })
+
+            }
+        });
+    }
+
     return (
         <div>
             <Helmet>
@@ -169,7 +198,7 @@ const AllUsers = () => {
                                             )}
                                         </TableCell>
                                         <TableCell>
-                                            <Button variant="destructive" size="sm">
+                                            <Button onClick={() => handleDeleteUser(user)} variant="destructive" size="sm">
                                                 <FaTrash />
                                             </Button>
                                         </TableCell>

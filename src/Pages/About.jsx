@@ -27,7 +27,11 @@ const About = () => {
         <div className=" py-16 px-8">
             <div className="container mx-auto grid lg:grid-cols-2 gap-8 items-center">
                 {/* Left Section */}
-                <div>
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1 }}
+                >
                     <h3 className="text-primary text-lg font-bold mb-2">Our Mission</h3>
                     <h1 className="text-4xl font-bold mb-6">
                         Simplifying Parcel Management, One Delivery at a Time
@@ -38,7 +42,7 @@ const About = () => {
                         our platform provides a seamless solution for users, admins, and delivery personnel alike.
                         We are committed to efficiency, transparency, and reliability, making parcel management easier for everyone.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Right Section */}
                 <div className="grid gap-4">

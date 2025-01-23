@@ -11,10 +11,14 @@ import FeaturesSection from '@/components/FeaturesSection';
 import ServicesSection from '@/components/ServicesSection';
 import TopDeliveryMan from '@/components/TopDeliveryMan';
 import Stats from '@/components/Stats';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     return (
         <div className=''>
+            <Helmet>
+                <title>Home | Parcel Ease</title>
+            </Helmet>
             <div className="banner-bg">
                 <Parallax
                     blur={{ min: -50, max: 50 }}
