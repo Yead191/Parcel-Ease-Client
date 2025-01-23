@@ -108,7 +108,7 @@ const MyDelivery = () => {
         });
     }
 
-    if (loading) {
+    if (loading || isLoading) {
         return <div className="flex flex-col  justify-center items-center min-h-screen">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
             </div>
