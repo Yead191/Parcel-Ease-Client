@@ -24,11 +24,17 @@ import DeliveryRoute from "./DeliveryRoute";
 import Home from "@/Pages/Home";
 import About from "@/Pages/About";
 import Contact from "@/Pages/Contact";
+import ScrollToTop from "@/components/ScrollToTop";
+import ErrorPage from "@/components/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (<>
+      <ScrollToTop></ScrollToTop>
+      <Root />
+    </>),
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/register',
@@ -76,12 +82,12 @@ const router = createBrowserRouter([
       {
         path: 'payment/:id',
         element: <PrivateRoute><Payment></Payment></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`)
+        loader: ({ params }) => fetch(`https://parcel-ease-server-snowy.vercel.app/parcel/${params.id}`)
       },
       {
         path: 'update-parcel/:id',
         element: <PrivateRoute><UpdateParcel></UpdateParcel></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`)
+        loader: ({ params }) => fetch(`https://parcel-ease-server-snowy.vercel.app/parcel/${params.id}`)
       },
       //admin
       {

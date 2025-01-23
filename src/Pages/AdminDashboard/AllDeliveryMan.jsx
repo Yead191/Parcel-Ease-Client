@@ -17,8 +17,8 @@ import { Helmet } from 'react-helmet-async';
 
 
 const AllDeliveryMan = () => {
-    const [deliveryMen, isLoading, refetch] = useDelivery()
-    console.log(deliveryMen);
+    const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
+    // console.log(deliveryMen);
     if (isLoading) {
         return <div className="flex flex-col  justify-center items-center min-h-screen">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
@@ -60,8 +60,8 @@ const AllDeliveryMan = () => {
                                                 <Star
                                                     key={i}
                                                     className={`h-4 w-4 ${i < Math.round(delivery?.totalRating / delivery?.reviewCount)
-                                                            ? "text-yellow-400"
-                                                            : "text-gray-300"
+                                                        ? "text-yellow-400"
+                                                        : "text-gray-300"
                                                         }`}
                                                 />
                                             ))}

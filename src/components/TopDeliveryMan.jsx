@@ -35,8 +35,8 @@ const TopDeliveryMan = () => {
                     topDeliveries?.slice(0, 3).map(delivery => <motion.Card
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        className="w-full ">
-                        <CardHeader className="p-0 h-64 md:h-56 ">
+                        className="w-full shadow-lg rounded-xl">
+                        <CardHeader className="p-0 h-64 md:h-56  ">
                             <img
                                 className="object-cover object-top w-full h-full rounded-t-lg"
                                 src={delivery.photo}

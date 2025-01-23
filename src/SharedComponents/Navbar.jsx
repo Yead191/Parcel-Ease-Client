@@ -68,7 +68,7 @@ const Navbar = () => {
             }}
             className="fixed top-0 z-50 w-full shadow-md lg:px-20"
         >
-            <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center justify-between px-4 py-1 lg:py-3">
 
 
                 {/* Mobile Menu */}
@@ -133,7 +133,7 @@ const Navbar = () => {
                     >
                         Parcel Ease
                     </Link>
-                    <img className="w-12" src={logo} alt="" />
+                    <img className="w-12 hidden md:block" src={logo} alt="" />
                 </div>
 
                 {/* Desktop Menu */}

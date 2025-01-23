@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,8 +13,12 @@ import toast from "react-hot-toast";
 export function ParcelModal({ value, refetch, status }) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState(null);
-    const [deliveryMen, isLoading,] = useDelivery()
+    const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
     const axiosSecure = useAxiosSecure()
+
+    useEffect(() => {
+        deliveryRefetch()
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
