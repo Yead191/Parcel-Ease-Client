@@ -89,7 +89,7 @@ const AllUsers = () => {
     };
 
     const handleDeleteUser = user => {
-        console.log(user);
+        // console.log(user);
         Swal.fire({
             title: `Delete ${user.name}?`,
             text: "You won't be able to revert this!",

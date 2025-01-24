@@ -58,7 +58,7 @@ const UpdateParcel = () => {
         // setLoading(true)
         const formData = new FormData(e.target);
         const formValues = Object.fromEntries(formData.entries());
-        console.log(formValues);
+        // console.log(formValues);
         if (formValues.price <= 0) {
             toast.error('Enter a valid Weight');
             return;
@@ -66,7 +66,7 @@ const UpdateParcel = () => {
         }
         axiosSecure.patch(`/parcel/${_id}`, formValues)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     navigate('/dashboard/my-parcel')
                     Swal.fire({

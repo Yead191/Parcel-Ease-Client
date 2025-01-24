@@ -42,9 +42,9 @@ const MyDelivery = () => {
         setLocation({ latitude: lat, longitude: lon });
         setModalOpen(true);
     };
-    console.log(myDelivery);
+    // console.log(myDelivery);
     const handleCancel = id => {
-        console.log(id);
+        // console.log(id);
         Swal.fire({
             title: "Do You Want to Cancel This Delivery?",
             text: "You won't be able to revert this!",
@@ -80,7 +80,7 @@ const MyDelivery = () => {
             deliveredManEmail: parcel.deliveryEmail,
 
         }
-        console.log(deliveryDetails);
+        // console.log(deliveryDetails);
         Swal.fire({
             title: "Did You Completed this Delivery?",
             text: "You won't be able to revert this!",

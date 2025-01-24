@@ -40,6 +40,7 @@ export default function AllParcel() {
     const [parcels, loading, refetch] = useManageParcel()
 
     const [filteredParcels, setFilteredParcels] = useState();
+    const [searchLoading, setSearchLoading] = useState(false)
 
     // Update `filteredParcels` whenever `parcels` changes (initial load)
     useEffect(() => {
@@ -66,24 +67,29 @@ export default function AllParcel() {
     const handleSearch = async () => {
         if (fromDate && toDate) {
             try {
+                setSearchLoading(true)
                 const from = new Date(fromDate).toISOString();
                 const to = new Date(toDate).toISOString();
 
                 const response = await axiosSecure.get("/parcels/search", {
                     params: { from, to },
                 });
+                setSearchLoading(false)
 
                 setFilteredParcels(response.data);
                 refetch()
 
             } catch (error) {
+                setSearchLoading(false)
+
                 console.error("Error fetching filtered parcels:", error);
             }
         } else {
+            setSearchLoading(false)
             toast.error("Please select both From and To dates.");
         }
     };
-    if (loading) {
+    if (loading || searchLoading) {
         return <div className="flex flex-col  justify-center items-center min-h-screen">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid">
             </div>

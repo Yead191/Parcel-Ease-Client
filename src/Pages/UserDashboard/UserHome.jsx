@@ -58,11 +58,11 @@ const UserHome = () => {
             photo: newPhoto || user?.photo,
         };
         setLoading(true)
-        console.log("Updated Profile Data:", updatedData);
+        // console.log("Updated Profile Data:", updatedData);
         axiosSecure.patch(`/user/${user._id}`, updatedData)
             .then(res => {
                 refetch()
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     setLoading(false)
                     Swal.fire({
@@ -80,11 +80,11 @@ const UserHome = () => {
     };
     const handleImageChange = async (event) => {
         setLoading(true)
-        console.log(event.target);
+        // console.log(event.target);
         const file = {
             image: event.target.files[0]
         }
-        console.log(file);
+        // console.log(file);
         if (file) {
             // const imageUrl = URL.createObjectURL(file);
             const res = await axiosPublic.post(imageUploadApi, file, {

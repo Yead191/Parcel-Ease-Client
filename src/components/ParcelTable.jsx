@@ -21,7 +21,7 @@ const ParcelTable = ({ parcels }) => {
         : parcels;
 
     const handleCancel = id => {
-        console.log(id);
+        // console.log(id);
         Swal.fire({
             title: "Do You Want to Cancel This Delivery?",
             text: "You won't be able to revert this!",

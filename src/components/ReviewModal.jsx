@@ -30,7 +30,7 @@ const ReviewModal = ({ parcel, refetch }) => {
             date: date
 
         }
-        console.log(reviewInfo);
+        // console.log(reviewInfo);
         axiosSecure.post(`/reviews/${parcel._id}`, reviewInfo)
             .then(res => {
                 if (res.data.insertedId) {

@@ -1,12 +1,17 @@
 import useAxiosPublic from '@/hooks/useAxiosPublic';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import SectionHeading from './SectionHeading';
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription  } from './ui/dialog';
 const TopDeliveryMan = () => {
     const axiosPublic = useAxiosPublic()
+    const [selectedDeliveryMan, setSelectedDeliveryMan] = useState(null); // State to hold selected delivery man info
+    const [isOpen, setIsOpen] = useState(false); // Modal open state
+
+
     const { data: topDeliveries = [] } = useQuery({
         queryKey: ['topDeliveries'],
         queryFn: async () => {
@@ -14,6 +19,10 @@ const TopDeliveryMan = () => {
             return res.data
         }
     })
+    const handleContactClick = (delivery) => {
+        setSelectedDeliveryMan(delivery);
+        setIsOpen(true);
+    };
     // console.log(topDeliveries);
     return (
         <div className='mt-8 mb-16'>
@@ -58,14 +67,42 @@ const TopDeliveryMan = () => {
                             </div>
                         </CardContent>
                         <CardFooter className="flex items-center  justify-start px-4 py-3">
-                            <Button variant="">Contact</Button>
+                            <Button onClick={() => handleContactClick(delivery)} variant="">Contact</Button>
                         </CardFooter>
                     </motion.Card>)
                 }
 
-
-
             </div>
+            {/* Modal */}
+            {selectedDeliveryMan && (
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle className="text-center mb-3">Contact Information</DialogTitle>
+                            <DialogDescription >
+                                <div className="flex items-center space-x-4 ">
+                                    <img
+                                        src={selectedDeliveryMan.photo}
+                                        alt="User"
+                                        className="w-16 h-16 rounded-full"
+                                    />
+                                    <div>
+                                        <h3 className="text-lg font-bold">{selectedDeliveryMan.name}</h3>
+                                        <p className="text-sm text-gray-600">{selectedDeliveryMan.role}</p>
+                                    </div>
+                                </div>
+                                <div className="mt-4 space-y-2">
+                                    <p><strong>Email:</strong> {selectedDeliveryMan.email}</p>
+                                    <p><strong>Phone:</strong> {selectedDeliveryMan.phone}</p>
+                                    <p><strong>Address:</strong> {selectedDeliveryMan.address}</p>
+                                    <p><strong>Member Since:</strong> {selectedDeliveryMan.createdAt}</p>
+                                    <p><strong>Total Delivered:</strong> {selectedDeliveryMan.totalDelivered}</p>
+                                </div>
+                            </DialogDescription>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
+            )}
 
         </div>
     );
