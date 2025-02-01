@@ -83,6 +83,16 @@ Parcel Ease is a delivery management web application designed to streamline the 
 1. Live Front-end Link: https://parcel-ease-dc4fa.web.app/ 
 2. Live Backend Server Link: https://parcel-ease-server-snowy.vercel.app/
 
+## Admin Role Access:
+
+- **User name**: yead@ra.com
+- **Password**: Yead123@456
+
+## DeliveryMan Role Access:
+
+- **User name**: sajib@bormon.com
+- **Password**: Yead123@456
+
 
 ## 
 

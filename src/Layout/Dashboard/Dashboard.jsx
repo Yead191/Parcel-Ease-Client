@@ -66,8 +66,8 @@ const Dashboard = () => {
                 <div style={{
                     background:
                         "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
-                }} className="  *:text-white lg:flex flex-col w-64 hidden min-h-screen fixed z-10">
-                    <div className="p-6 font-bold text-center flex  items-center gap-1">
+                }} className="  *:text-white lg:flex flex-col w-64 hidden min-h-screen fixed z-10 ">
+                    <div className="p-6 font-bold text-center flex  items-center gap-1 ">
                         <h1 style={{ fontVariant: "small-caps" }} className="text-xl lg:text-3xl">Parcel Ease</h1>
                         <img className="w-10" src={logo} alt="" />
                     </div>
@@ -121,7 +121,7 @@ const Dashboard = () => {
             <div style={{
                 background:
                     "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
-            }} className="lg:hidden p-4  text-white flex flex-row-reverse items-center justify-between fixed z-10 w-full">
+            }} className="lg:hidden p-4  text-white flex flex-row-reverse items-center justify-between fixed z-10 w-full py-2">
                 <div className="flex items-center gap-2">
                     <Link style={{ fontVariant: 'small-caps' }} to="/" className="text-xl font-bold text-white">
                         Parcel Ease

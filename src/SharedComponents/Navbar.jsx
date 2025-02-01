@@ -72,7 +72,7 @@ const Navbar = () => {
 
 
                 {/* Mobile Menu */}
-                <div className="lg:hidden">
+                <div className="flex items-center lg:hidden">
                     <Sheet open={isDrawerOpen} onOpenChange={setDrawerOpen}>
                         <SheetTrigger asChild>
                             <button className="text-white">
