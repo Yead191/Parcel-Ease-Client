@@ -85,7 +85,7 @@ const ParcelTable = ({ parcels }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredParcels.map((parcel) => (
+                        {filteredParcels?.map((parcel) => (
                             <tr key={parcel._id}>
                                 <td className="p-2 border ">{parcel?.parcelType}</td>
                                 <td className="p-2 border">{parcel?.deliveryDate}</td>

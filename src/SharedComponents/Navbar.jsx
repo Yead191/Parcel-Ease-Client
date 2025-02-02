@@ -41,9 +41,9 @@ const Navbar = () => {
     }
 
     const links = (
-        <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 ">
+        <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6  ">
             <li>
-                <NavLink to="/" className="hover:text-pink-600">
+                <NavLink to="/" className="hover:text-pink-600 ">
                     Home
                 </NavLink>
             </li>
@@ -142,7 +142,7 @@ const Navbar = () => {
 
                         {links}
                         {/* dropdown */}
-                        <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" />
+                        {/* <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" /> */}
 
                         <div className="dropdown-end flex items-center justify-center">
                             <div className="w-12 rounded-full ">
@@ -216,7 +216,7 @@ const Navbar = () => {
 
                 {/* Theme Toggle */}
                 <div className="lg:hidden flex items-center gap-2">
-                    <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" />
+                    {/* <IoIosNotificationsOutline className="text-white text-2xl cursor-pointer font-bold" /> */}
 
                     <div className="dropdown-end flex items-center justify-center">
                         <div className="w-12 rounded-full ">

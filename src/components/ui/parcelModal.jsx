@@ -16,9 +16,9 @@ export function ParcelModal({ value, refetch, status }) {
     const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
     const axiosSecure = useAxiosSecure()
 
-    useEffect(() => {
-        deliveryRefetch()
-    }, [])
+    // useEffect(() => {
+    //     deliveryRefetch()
+    // }, [deliveryRefetch])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -37,7 +37,7 @@ export function ParcelModal({ value, refetch, status }) {
         axiosSecure.patch(`/manage-parcel/${value}`, deliveryInfo)
             .then(res => {
                 // console.log(res.data);
-                if (res.data.modifiedCount > 0) {
+                if (res.data?.modifiedCount > 0) {
                     setIsOpen(false);
                     refetch()
                     Swal.fire({
@@ -50,7 +50,14 @@ export function ParcelModal({ value, refetch, status }) {
 
                 }
             })
+            .catch(err => toast.error(`Axios error: ${err}`));
 
+    }
+    if (isLoading) {
+        return <div className="flex flex-col  justify-center items-center">
+            <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-purple-900 border-solid">
+            </div>
+        </div>
     }
 
     return (
