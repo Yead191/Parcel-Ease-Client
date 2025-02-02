@@ -9,7 +9,7 @@ const useDelivery = () => {
 
     const { data: deliveryMen = [], isLoading, refetch: deliveryRefetch } = useQuery({
         queryKey: ['deliveryMen', user?.email],
-        enabled: !loading,
+        enabled: !!user?.email && !loading,
         queryFn: async () => {
             const res = await axiosSecure.get('/delivery-men')
             return res.data

@@ -8,13 +8,30 @@ import { de } from "date-fns/locale";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import useManageParcel from "@/hooks/useManageParcel";
 
 
-export function ParcelModal({ value, refetch, status }) {
+export function ParcelModal({ value, status }) {
+    const [, , refetch] = useManageParcel()
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState(null);
-    const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
     const axiosSecure = useAxiosSecure()
+    // const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
+    const {data: deliveryMen=[], isLoading} = useQuery({
+        queryKey: ['delivery-men'],
+        queryFn: async()=>{
+            const res = await axiosSecure.get('/delivery-men')
+            return res.data
+        }
+    })
+
+    if (isLoading) {
+        return <div className="flex flex-col  justify-center items-center">
+            <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-purple-900 border-solid">
+            </div>
+        </div>
+    }
 
     // useEffect(() => {
     //     deliveryRefetch()
@@ -38,8 +55,8 @@ export function ParcelModal({ value, refetch, status }) {
             .then(res => {
                 // console.log(res.data);
                 if (res.data?.modifiedCount > 0) {
-                    setIsOpen(false);
                     refetch()
+                    setIsOpen(false);
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -53,12 +70,7 @@ export function ParcelModal({ value, refetch, status }) {
             .catch(err => toast.error(`Axios error: ${err}`));
 
     }
-    if (isLoading) {
-        return <div className="flex flex-col  justify-center items-center">
-            <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-purple-900 border-solid">
-            </div>
-        </div>
-    }
+    
 
     return (
         <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>

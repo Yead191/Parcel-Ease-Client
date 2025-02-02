@@ -39,12 +39,15 @@ export default function AllParcel() {
 
     const [parcels, loading, refetch] = useManageParcel()
 
-    const [filteredParcels, setFilteredParcels] = useState();
+    const [filteredParcels, setFilteredParcels] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false)
+
 
     // Update `filteredParcels` whenever `parcels` changes (initial load)
     useEffect(() => {
-        setFilteredParcels(parcels || []);
+        if (JSON.stringify(filteredParcels) !== JSON.stringify(parcels)) {
+            setFilteredParcels(parcels);
+        }
     }, [parcels]);
 
     // console.log(parcels);
@@ -77,7 +80,7 @@ export default function AllParcel() {
                 setSearchLoading(false)
 
                 setFilteredParcels(response.data);
-                refetch()
+                // refetch()
 
             } catch (error) {
                 setSearchLoading(false)
@@ -95,6 +98,7 @@ export default function AllParcel() {
             </div>
         </div>
     }
+
 
     return (
         <div className="container mx-auto  px-4 ">

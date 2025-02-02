@@ -14,10 +14,20 @@ import { Button } from "@/components/ui/button"
 import useDelivery from '@/hooks/useDelivery';
 import { Star } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { useQuery } from 'react-query';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
 
 
 const AllDeliveryMan = () => {
-    const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
+    // const [deliveryMen, isLoading, deliveryRefetch] = useDelivery()
+    const axiosSecure = useAxiosSecure()
+    const {data: deliveryMen=[], isLoading} = useQuery({
+            queryKey: ['delivery-men'],
+            queryFn: async()=>{
+                const res = await axiosSecure.get('/delivery-men')
+                return res.data
+            }
+        })
     // console.log(deliveryMen);
     if (isLoading) {
         return <div className="flex flex-col  justify-center items-center min-h-screen">
@@ -49,7 +59,7 @@ const AllDeliveryMan = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {deliveryMen.map((delivery, index) => (
+                            {deliveryMen?.map((delivery, index) => (
                                 <TableRow key={index}>
                                     <TableCell className="font-medium">{delivery?.name}</TableCell>
                                     <TableCell className=" md:table-cell">{delivery?.phone}</TableCell>
