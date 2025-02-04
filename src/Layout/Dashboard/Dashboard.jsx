@@ -153,13 +153,14 @@ const Dashboard = () => {
                         side="left"
                         className="bg-gray-50 text-gray-800"
                     >
-                        <div className="p-4">
-                            <h5 className="text-lg font-semibold text-gray-500 uppercase mb-4">
+                        <div className="">
+                            <h5 className="text-lg font-semibold text-gray-500 uppercase mb-2">
                                 Menu
                             </h5>
+                            <hr className="mb-4" />
                             {/* Links for small screens */}
                             {isAdmin && (
-                                <ul className="space-y-4 p-4 text-white">
+                                <ul className="space-y-4 text-white text-sm">
                                     <SidebarLink
                                         to="/dashboard/statistics"
                                         icon={<FaHome />}
@@ -193,7 +194,7 @@ const Dashboard = () => {
                                 </ul>
                             )}
                             {isDeliveryMan && (
-                                <ul className="space-y-4 p-4 text-white">
+                                <ul className="space-y-4  text-white text-sm">
                                     <SidebarLink
                                         to="/dashboard/my-delivery"
                                         icon={<FaBook />}
@@ -215,7 +216,7 @@ const Dashboard = () => {
                                 </ul>
                             )}
                             {!isAdmin && !isDeliveryMan && (
-                                <ul className="space-y-4 p-4 text-white">
+                                <ul className="space-y-4  text-white text-sm">
                                     <SidebarLink
                                         to="/dashboard/profile"
                                         icon={<FaHome />}
@@ -243,8 +244,8 @@ const Dashboard = () => {
                                 </ul>
                             )}
                             {/* Footer Links */}
-                            <hr className="border-t border-white mx-4" />
-                            <ul className="space-y-4 p-4 text-white lg:text-md">
+                            <hr className=" my-4 mx-4" />
+                            <ul className="space-y-4 mt-4 text-white lg:text-md">
                                 <SidebarLink to="/" icon={<FaHome />} label="Home" />
                                 <SidebarLink to="/about" icon={<FaHome />} label="About Us" />
                                 <SidebarLink to="/contact" icon={<FaEnvelope />} label="Contact" />

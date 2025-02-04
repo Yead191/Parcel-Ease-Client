@@ -42,7 +42,7 @@ Parcel Ease is a delivery management web application designed to streamline the 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Yead191/Parcel-Ease-Client
    cd parcel-ease
    ```
 
