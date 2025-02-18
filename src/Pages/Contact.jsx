@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Send, Phone, MapPin, Mail } from "lucide-react";
+import { Send, MapPin, Mail, Phone } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import SectionHeading from "@/components/SectionHeading";
 import { motion } from 'framer-motion'
@@ -78,7 +78,7 @@ export default function Contact() {
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <div className="bg-muted p-3 rounded-lg">
-                                        <Phone className="w-6 h-6 text-secondary" />
+                                        <Phone className="w-6 h-6 " />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold">Phone</h3>
@@ -87,7 +87,7 @@ export default function Contact() {
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <div className="bg-muted p-3 rounded-lg">
-                                        <MapPin className="w-6 h-6 text-accent" />
+                                        <MapPin className="w-6 h-6 " />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold">Location</h3>
