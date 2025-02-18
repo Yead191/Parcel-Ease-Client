@@ -87,6 +87,11 @@ const Footer = () => {
                             <br />
                             sajib@bormon.com | Pass: Yead123@456
                         </li>
+                        <li>
+                            User Credential: 
+                            <br />
+                            yead@gmail.com | Pass: Yead123@456
+                        </li>
                         
                     </ul>
                 </div>
