@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import deliveryAnimation from "../assets/deliveryAnimation.json";
 import { Button } from './ui/button';
 import { motion, useInView } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 
 const Banner2 = () => {
@@ -38,7 +39,10 @@ const Banner2 = () => {
                         Whether you're booking, tracking, or ensuring your parcels reach their destination on time,
                         we make the process seamless and efficient.
                     </p>
-                    <Button>Get Started</Button>
+                    <Link to={'/dashboard/book-parcel'}>
+
+                        <Button>Get Started</Button>
+                    </Link>
                 </motion.div>
             </motion.div>
         </section>
