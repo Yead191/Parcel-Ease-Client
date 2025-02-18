@@ -16,6 +16,7 @@ const Footer = () => {
                         A Parcel Delivery System since 2024
                         <br />
                         This Project is Developed By Yead
+
                     </p>
                 </div>
 
@@ -75,23 +76,18 @@ const Footer = () => {
 
                 {/* Legal */}
                 <div>
-                    <h6 className="mb-4 text-lg font-semibold">Legal</h6>
+                    <h6 className="mb-4 text-lg font-semibold">Testing Credentials</h6>
                     <ul className="space-y-2">
                         <li>
-                            <a href="#" className="hover:underline">
-                                Terms of use
-                            </a>
+                            Admin Credential: <br />
+                            yead@admin.com | Pass: Yead123@456
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
-                                Privacy policy
-                            </a>
+                            DeliveryMan Credential: 
+                            <br />
+                            sajib@bormon.com | Pass: Yead123@456
                         </li>
-                        <li>
-                            <a href="#" className="hover:underline">
-                                Cookie policy
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>

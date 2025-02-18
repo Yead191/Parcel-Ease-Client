@@ -14,6 +14,7 @@ import Stats from '@/components/Stats';
 import { Helmet } from 'react-helmet-async';
 import { useMediaQuery } from 'react-responsive';
 import HowItWorks from '@/components/HomeComponents/HowItWorks';
+import Pricing from '@/components/HomeComponents/Pricing';
 
 const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -78,8 +79,9 @@ const Home = () => {
             <FeaturesSection></FeaturesSection>
             <ServicesSection></ServicesSection>
             <Stats></Stats>
-            <TopDeliveryMan></TopDeliveryMan>
+            <Pricing></Pricing>
             <HowItWorks></HowItWorks>
+            <TopDeliveryMan></TopDeliveryMan>
 
         </div>
     );
