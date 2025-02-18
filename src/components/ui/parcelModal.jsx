@@ -75,7 +75,7 @@ export function ParcelModal({ value, status }) {
     return (
         <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Dialog.Trigger asChild>
-                <Button disabled={status === "Delivered"} size="sm" className="bg-orange-400 text-white">Manage Parcel</Button>
+                <Button disabled={status === "Delivered"} size="sm" className="bg-orange-400 text-white text-xs">Manage Parcel</Button>
             </Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 bg-black/50" />
@@ -84,7 +84,7 @@ export function ParcelModal({ value, status }) {
                         "fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6"
                     )}
                 >
-                    <Dialog.Title className="text-lg font-bold mb-4">Manage Parcel</Dialog.Title>
+                    <Dialog.Title className="md:text-lg font-bold mb-4 ">Manage Parcel</Dialog.Title>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Deliveryman Dropdown */}
                         <div>

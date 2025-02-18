@@ -17,6 +17,12 @@ import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import Pagination from '@/components/Pagination';
 import { Helmet } from 'react-helmet-async';
+import { Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue, } from '@/components/ui/select';
 
 
 
@@ -42,52 +48,60 @@ const AllUsers = () => {
 
     const totalPages = Math.ceil(totalUsers / itemsPerPage);
 
-    const handleDeliveryMan = user => {
-        const userRole = { role: "DeliveryMan" };
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You're going to make this user a Delivery Man!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#8bde1a",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Make DeliveryMan!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.patch(`/user/role/${user._id}`, userRole)
-                    .then(res => {
-                        if (res.data.modifiedCount > 0) {
-                            refetch();
-                            toast.success(`${user.name} is now a Delivery Man!`);
-                        }
-                    });
-            }
-        });
-    };
+    // const handleDeliveryMan = user => {
+    //     const userRole = { role: "DeliveryMan" };
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "You're going to make this user a Delivery Man!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#8bde1a",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, Make DeliveryMan!",
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             axiosSecure.patch(`/user/role/${user._id}`, userRole)
+    //                 .then(res => {
+    //                     if (res.data.modifiedCount > 0) {
+    //                         refetch();
+    //                         toast.success(`${user.name} is now a Delivery Man!`);
+    //                     }
+    //                 });
+    //         }
+    //     });
+    // };
 
-    const handleAdmin = user => {
-        const userRole = { role: "Admin" };
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You're going to make this user an Admin!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#8bde1a",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Make Admin!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.patch(`/user/role/${user._id}`, userRole)
-                    .then(res => {
-                        if (res.data.modifiedCount > 0) {
-                            refetch();
-                            toast.success(`${user.name} is now an Admin!`);
-                        }
-                    });
-            }
-        });
-    };
+    // const handleAdmin = user => {
+    //     const userRole = { role: "Admin" };
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "You're going to make this user an Admin!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#8bde1a",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, Make Admin!",
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             axiosSecure.patch(`/user/role/${user._id}`, userRole)
+    //                 .then(res => {
+    //                     if (res.data.modifiedCount > 0) {
+    //                         refetch();
+    //                         toast.success(`${user.name} is now an Admin!`);
+    //                     }
+    //                 });
+    //         }
+    //     });
+    // };
 
+    const handleRoleChange = async (id, role) => {
+        await toast.promise(axiosSecure.patch(`/users/role/${id}/${role}`), {
+            loading: "Updating Role...",
+            success: <b>Role updated Successful!</b>,
+            error: <b>Could not update.</b>,
+        });
+        refetch()
+    };
     const handleDeleteUser = user => {
         // console.log(user);
         Swal.fire({
@@ -130,7 +144,7 @@ const AllUsers = () => {
                 >
                     <h1 className="text-3xl">Total Users: {totalUsers}</h1>
                 </div>
-                <div className="my-8 md:w-11/12 mx-auto overflow-x-hidden w-full">
+                <div className="my-8  mx-auto overflow-x-hidden w-full">
                     <div className="overflow-x-scroll w-full">
                         <Table>
                             <TableCaption className="text-lg text-gray-500">
@@ -170,32 +184,22 @@ const AllUsers = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell>{user.phone}</TableCell>
-                                        <TableCell>
-                                            {user.role === "Admin" ? (
-                                                <Button
-                                                    variant="outline"
-                                                    className="bg-green-600 text-white"
-                                                    size="sm"
-                                                >
-                                                    Admin
-                                                </Button>
-                                            ) : user.role === "DeliveryMan" ? (
-                                                <div className="flex flex-col md:flex-row gap-2">
-                                                    <Button onClick={() => handleAdmin(user)} className={buttonVariants({ size: "sm" })}>Make Admin</Button>
-                                                    <Button
-                                                        variant="outline"
-                                                        className="bg-blue-500 text-white"
-                                                        size="sm"
-                                                    >
-                                                        Delivery Man
-                                                    </Button>
-                                                </div>
-                                            ) : (
-                                                <div className="flex flex-col md:flex-row gap-2">
-                                                    <Button onClick={() => handleAdmin(user)} className={buttonVariants({ size: "sm" })}>Make Admin</Button>
-                                                    <Button onClick={() => handleDeliveryMan(user)} className={buttonVariants({ size: "sm" })}>Make Delivery Man</Button>
-                                                </div>
-                                            )}
+                                        <TableCell >
+                                            <Select 
+                                                defaultValue={user.role}
+                                                onValueChange={(val) => handleRoleChange(user._id, val)}
+                                            >
+                                                <SelectTrigger className="">
+                                                    <SelectValue placeholder="Select category" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectItem value="User">User</SelectItem>
+                                                        <SelectItem value="DeliveryMan">Delivery Man</SelectItem>
+                                                        <SelectItem value="Admin">Admin</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
                                         </TableCell>
                                         <TableCell>
                                             <Button onClick={() => handleDeleteUser(user)} variant="destructive" size="sm">

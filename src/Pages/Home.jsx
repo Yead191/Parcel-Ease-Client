@@ -12,8 +12,10 @@ import ServicesSection from '@/components/ServicesSection';
 import TopDeliveryMan from '@/components/TopDeliveryMan';
 import Stats from '@/components/Stats';
 import { Helmet } from 'react-helmet-async';
+import { useMediaQuery } from 'react-responsive';
 
 const Home = () => {
+    const isMobile = useMediaQuery({ maxWidth: 768 });
     return (
         <div className=''>
             <Helmet>
@@ -21,11 +23,11 @@ const Home = () => {
             </Helmet>
             <div className="banner-bg">
                 <Parallax
-                    blur={{ min: -50, max: 50 }}
+                    blur={{ min: -10, max: 10 }} 
                     bgClassName="object-cover"
                     bgImage={bannerParcel}
                     bgImageAlt="cover image"
-                    strength={-200}
+                    strength={isMobile ? 0 : -200} 
                 >
                     {/* Overlay */}
                     <div className="relative  lg:h-[600px] flex items-center justify-center px-6 lg:px-16 ">
@@ -33,9 +35,9 @@ const Home = () => {
                         <div className="relative grid grid-cols-1 lg:grid-cols-2 items-center w-full max-w-6xl">
                             {/* Left Section */}
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1 }}
+                                transition={{ duration: 0.8 }}
                                 className="space-y-6 text-center lg:text-left pt-16 md:pt-0">
                                 <h1 className="text-4xl xl:text-5xl font-bold text-white">
                                     Manage Your Parcel Deliveries Effortlessly
@@ -59,7 +61,7 @@ const Home = () => {
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 1 }}
+                                transition={{ duration: 0.8 }}
                                 className=" lg:block">
                                 <Lottie
                                     className="h-[400px] lg:h-[550px]"

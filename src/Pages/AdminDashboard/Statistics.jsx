@@ -135,7 +135,7 @@ const Statistics = () => {
             <Helmet>
                 <title>Statistics | Parcel Ease</title>
             </Helmet>
-            <SectionHeading heading={"Statistics"}></SectionHeading>
+            {/* <SectionHeading heading={"Statistics"}></SectionHeading> */}
             <CardStats stats={stats} ></CardStats>
 
             <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">

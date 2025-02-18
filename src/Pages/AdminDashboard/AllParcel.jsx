@@ -140,7 +140,7 @@ export default function AllParcel() {
                     </Button>
                 </div>
 
-                <div className="rounded-md border overflow-x-auto mb-20">
+                <div className="rounded-md border overflow-x-scroll mb-20">
                     <Table>
                         <TableHeader>
                             <TableRow style={{
@@ -149,7 +149,7 @@ export default function AllParcel() {
                             }}>
                                 <TableHead>User's Name</TableHead>
                                 <TableHead className="hidden md:table-cell">User's Phone</TableHead>
-                                <TableHead>Booking Date</TableHead>
+                                <TableHead className="hidden md:table-cell">Booking Date</TableHead>
                                 <TableHead className="hidden sm:table-cell">Req. Delivery Date</TableHead>
                                 <TableHead>Cost</TableHead>
                                 <TableHead>Assigned To</TableHead>
@@ -174,7 +174,7 @@ export default function AllParcel() {
                                     <TableCell className="text-right">
                                         {
                                             parcel.status === 'Cancelled' ?
-                                                <Button disabled variant="" size="sm">
+                                                <Button disabled variant="" size="sm" className="text-xs">
                                                     Not Available
                                                 </Button>
                                                 :

@@ -66,9 +66,9 @@ const Navbar = () => {
                 background:
                     "linear-gradient(90deg, #540654, #cc0d85 50%, #540654 100%, #00d4ff 0)",
             }}
-            className="fixed top-0 z-50 w-full shadow-md lg:px-20"
+            className="fixed top-0 z-50 w-full shadow-md lg:px-20 py-0"
         >
-            <div className="flex items-center justify-between px-4 py-1 lg:py-3">
+            <div className="flex items-center justify-between px-4  py-1">
 
 
                 {/* Mobile Menu */}
@@ -93,11 +93,12 @@ const Navbar = () => {
                         </SheetTrigger>
                         <SheetContent side="left" className="bg-gray-50 text-gray-800">
                             <div className="p-4">
-                                <h5 className="text-lg font-semibold text-gray-500 uppercase mb-4">
+                                <h5 className="text-lg font-semibold text-gray-500 uppercase ">
                                     Menu
                                 </h5>
+                                <hr className="mt-2 mb-8" />
                                 <ul className="flex flex-col gap-4 lg:flex-row lg:gap-6 ">
-                                    <li>
+                                    <li className="">
                                         <NavLink to="/" onClick={closeDrawer} className="hover:text-pink-600">
                                             Home
                                         </NavLink>
@@ -137,7 +138,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop Menu */}
-                <div className="hidden lg:block text-white">
+                <div className="hidden lg:block text-white py-0">
                     <div className=" flex items-center gap-6 ">
 
                         {links}
