@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
+import { motion } from 'framer-motion';
 
 
 const SocialLogin = () => {
@@ -43,11 +44,15 @@ const SocialLogin = () => {
     }
     return (
         <div>
-            <div className="flex gap-3 mb-6">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: 'easeInOut', delay: 0.4 }}
+                className="flex gap-3 mb-6">
                 <button onClick={handleGoogleSignIn} className="bg-gray-200 hover:bg-gray-300 rounded-xl px-5 h-10 flex  gap-3 items-center justify-center">
                     <FcGoogle /> Sign in With Google
                 </button>
-            </div>
+            </motion.div>
         </div>
     );
 };

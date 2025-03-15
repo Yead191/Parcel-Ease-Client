@@ -61,7 +61,7 @@ const Dashboard = () => {
     return (
         <div className="h-screen flex cinzel">
             {/* Sidebar for Large Devices */}
-            <div className="w-64 hidden lg:block">
+            <div className="w-72 lg:mr-2 hidden lg:block">
 
                 <div style={{
                     background:

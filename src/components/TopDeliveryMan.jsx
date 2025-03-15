@@ -2,14 +2,14 @@ import useAxiosPublic from '@/hooks/useAxiosPublic';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import SectionHeading from './SectionHeading';
-import { motion } from 'framer-motion'
+import { delay, motion } from 'framer-motion'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import {  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription  } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 const TopDeliveryMan = () => {
     const axiosPublic = useAxiosPublic()
-    const [selectedDeliveryMan, setSelectedDeliveryMan] = useState(null); // State to hold selected delivery man info
-    const [isOpen, setIsOpen] = useState(false); // Modal open state
+    const [selectedDeliveryMan, setSelectedDeliveryMan] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
 
 
     const { data: topDeliveries = [] } = useQuery({
@@ -38,21 +38,24 @@ const TopDeliveryMan = () => {
                     Meet Our Top Delivery Men
                 </p>
             </motion.div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-10/12  place-items-center md:w-10/12 lg:w-8/12 xl:w-6/12 gap-6 mx-auto'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-10/12  place-items-center md:w-10/12 lg:w-8/12  gap-6 mx-auto'>
 
                 {
-                    topDeliveries?.slice(0, 3).map(delivery => <motion.Card
-                        initial={{ opacity: 0, y: 50 }}
+                    topDeliveries?.slice(0, 3).map((delivery, idx) => <motion.Card
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        className="w-full shadow-lg rounded-xl">
-                        <CardHeader className="p-0 h-64 md:h-56  ">
+                        transition={{ duration: 0.8, ease: 'easeInOut', delay: idx * 0.3 }}
+                        viewport={{ once: true }}
+
+                        className="w-full shadow-lg rounded-xl flex flex-col ">
+                        <CardHeader className="p-0 h-64 md:h-64 ">
                             <img
                                 className="object-cover object-top w-full h-full rounded-t-lg"
                                 src={delivery.photo}
                                 alt="avatar"
                             />
                         </CardHeader>
-                        <CardContent className="py-5 ">
+                        <CardContent className="py-5 flex-grow ">
                             <CardTitle className="text-xl font-bold">{delivery.name}</CardTitle>
                             <CardDescription className="text-sm text-gray-700 dark:text-gray-200">
                                 {delivery.role}

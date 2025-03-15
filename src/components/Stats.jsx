@@ -3,6 +3,7 @@ import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import useStats from '@/hooks/useStats';
 import useAuth from '@/hooks/useAuth';
+import { motion } from 'framer-motion'
 
 const Stats = () => {
     const [refBookings, bookingsInView] = useInView({ triggerOnce: true });
@@ -22,7 +23,12 @@ const Stats = () => {
 
     return (
         <section className="py-12 bg-muted mb-12">
-            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.4 }}
+
+                className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Stat 1: Total Bookings */}
                 <div className="text-center">
                     <div ref={refBookings}>
@@ -52,7 +58,7 @@ const Stats = () => {
                     </div>
                     <p className="text-primary text-lg mt-2">Total Users</p>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };

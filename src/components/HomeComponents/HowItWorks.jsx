@@ -6,7 +6,7 @@ const steps = [
     { icon: <Package size={40} className="text-blue-500" />, title: "Book a Parcel", description: "Enter details and book your parcel with ease." },
     { icon: <Truck size={40} className="text-green-500" />, title: "Parcel in Transit", description: "Track your shipment in real-time with live updates." },
     { icon: <CheckCircle size={40} className="text-purple-500" />, title: "Delivered Successfully", description: "Receive your parcel securely at your doorstep." }
-  ];
+];
 
 export default function HowItWorks() {
     return (
@@ -14,8 +14,9 @@ export default function HowItWorks() {
             <div className="container mx-auto px-6 text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    viewport={{ once: true }}
                     className="text-4xl font-bold text-gray-800 mb-6"
                 >
                     How It Works
@@ -25,8 +26,10 @@ export default function HowItWorks() {
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.2 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: index * 0.4 }}
+                            viewport={{ once: true }}
+
                         >
                             <Card className="shadow-lg rounded-2xl p-6">
                                 <CardHeader className="flex justify-center items-center">

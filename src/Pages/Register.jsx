@@ -115,17 +115,15 @@ const Register = () => {
                             <p className='text-red-500 mb-1 inline-flex items-center gap-1 text-sm'> <IoWarningOutline /> Name is Required</p>
                         }
                         <input
-                            {...register("photo", {
-                                required: "Required",
-                            })}
+                            {...register("photo")}
                             name='photo'
                             type="text"
                             placeholder="Photo URL"
                             className="block w-full mb-4 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
                         />
-                        {errors.photo &&
+                        {/* {errors.photo &&
                             <p className='text-red-500 mb-1 inline-flex items-center gap-1 text-sm'> <IoWarningOutline /> Photo URL is Required</p>
-                        }
+                        } */}
                         {/* Choose Role Dropdown */}
                         <div className="w-full mb-4">
                             <Select

@@ -86,16 +86,24 @@ const UserHome = () => {
         }
         // console.log(file);
         if (file) {
-            // const imageUrl = URL.createObjectURL(file);
-            const res = await axiosPublic.post(imageUploadApi, file, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            })
-            if (res.data.success) {
-                setLoading(false)
-                toast.success('Image Uploaded')
-                setNewPhoto(res.data.data.display_url);
+            try {
+                const res = await axiosPublic.post(imageUploadApi, file, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                if (res.data.success) {
+                    setLoading(false);
+                    toast.success('Image Uploaded');
+                    setNewPhoto(res.data.data.display_url);
+                } else {
+                    throw new Error('Image upload failed');
+                }
+            } catch (error) {
+                setLoading(false);
+                console.error('Image upload error:', error);
+                toast.error(error.response?.data?.message || 'Failed to upload image');
             }
         }
+
     };
 
     return (
@@ -210,7 +218,7 @@ const UserHome = () => {
                                             </div>
                                         </div>
                                         <DialogFooter>
-                                            <Button type="submit">Save changes</Button>
+                                            <Button disabled={loading} type="submit">Save changes</Button>
                                         </DialogFooter>
                                     </form>
 
