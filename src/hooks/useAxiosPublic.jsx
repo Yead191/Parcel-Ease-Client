@@ -1,10 +1,10 @@
-import axios from 'axios';
-import React from 'react';
+import axios from "axios";
+import React from "react";
 const axiosSecure = axios.create({
-    baseURL: 'https://parcel-ease-server-snowy.vercel.app'
-})
+  baseURL: import.meta.env.VITE_URL,
+});
 const useAxiosPublic = () => {
-    return axiosSecure
+  return axiosSecure;
 };
 
 export default useAxiosPublic;

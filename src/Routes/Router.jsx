@@ -1,8 +1,5 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Root from '../Layout/Root';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "../Layout/Root";
 import Register from "@/Pages/Register";
 import Login from "@/Pages/Login";
 import Dashboard from "@/Layout/Dashboard/Dashboard";
@@ -30,33 +27,35 @@ import ErrorPage from "@/components/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (<>
-      <ScrollToTop></ScrollToTop>
-      <Root />
-    </>),
+    element: (
+      <>
+        <ScrollToTop></ScrollToTop>
+        <Root />
+      </>
+    ),
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: '/register',
-        element: <Register />
+        path: "/register",
+        element: <Register />,
       },
       {
-        path: '/login',
-        element: <Login />
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: '/',
-        element: <Home />
+        path: "/",
+        element: <Home />,
       },
       {
-        path: '/about',
-        element: <About />
+        path: "/about",
+        element: <About />,
       },
       {
-        path: '/contact',
-        element: <Contact />
+        path: "/contact",
+        element: <Contact />,
       },
-    ]
+    ],
   },
   {
     path: "/dashboard",
@@ -64,59 +63,113 @@ const router = createBrowserRouter([
     children: [
       //user
       {
-        path: 'profile',
-        element: <PrivateRoute><UserHome></UserHome> </PrivateRoute>
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <UserHome></UserHome>{" "}
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'book-parcel',
-        element: <PrivateRoute> <BookParcel></BookParcel></PrivateRoute>
+        path: "book-parcel",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <BookParcel></BookParcel>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'my-parcel',
-        element: <PrivateRoute> <MyParcel></MyParcel></PrivateRoute>
+        path: "my-parcel",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyParcel></MyParcel>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'payment-history',
-        element: <PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
+        path: "payment-history",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory></PaymentHistory>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'payment/:id',
-        element: <PrivateRoute><Payment></Payment></PrivateRoute>,
-        loader: ({ params }) => fetch(`https://parcel-ease-server-snowy.vercel.app/parcel/${params.id}`)
+        path: "payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_URL}/parcel/${params.id}`),
       },
       {
-        path: 'update-parcel/:id',
-        element: <PrivateRoute><UpdateParcel></UpdateParcel></PrivateRoute>,
-        loader: ({ params }) => fetch(`https://parcel-ease-server-snowy.vercel.app/parcel/${params.id}`)
+        path: "update-parcel/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateParcel></UpdateParcel>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_URL}/parcel/${params.id}`),
       },
       //admin
       {
-        path: 'users',
-        element: <AdminRoute> <AllUsers></AllUsers></AdminRoute>
+        path: "users",
+        element: (
+          <AdminRoute>
+            {" "}
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'statistics',
-        element: <AdminRoute> <Statistics></Statistics></AdminRoute>
+        path: "statistics",
+        element: (
+          <AdminRoute>
+            {" "}
+            <Statistics></Statistics>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'all-parcel',
-        element: <AdminRoute><AllParcel></AllParcel></AdminRoute>
+        path: "all-parcel",
+        element: (
+          <AdminRoute>
+            <AllParcel></AllParcel>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'delivery-men',
-        element: <AdminRoute><AllDeliveryMan></AllDeliveryMan></AdminRoute>
+        path: "delivery-men",
+        element: (
+          <AdminRoute>
+            <AllDeliveryMan></AllDeliveryMan>
+          </AdminRoute>
+        ),
       },
 
       //Delivery man routes
       {
-        path: 'my-delivery',
-        element: <DeliveryRoute><MyDelivery></MyDelivery></DeliveryRoute>
+        path: "my-delivery",
+        element: (
+          <DeliveryRoute>
+            <MyDelivery></MyDelivery>
+          </DeliveryRoute>
+        ),
       },
       {
-        path: 'my-reviews',
-        element: <DeliveryRoute><MyReviews></MyReviews></DeliveryRoute>
+        path: "my-reviews",
+        element: (
+          <DeliveryRoute>
+            <MyReviews></MyReviews>
+          </DeliveryRoute>
+        ),
       },
-    ]
+    ],
   },
 ]);
 
