@@ -1,6 +1,6 @@
 import * as React from "react";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Search } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -29,22 +29,34 @@ import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import useAuth from "@/hooks/useAuth";
 
 export default function AllParcel() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-
-  const [parcels, loading, refetch] = useManageParcel();
-
+  const [searchParam, setSearchParam] = useState("");
+  // const [parcels, loading, refetch] = useManageParcel();
   const [filteredParcels, setFilteredParcels] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
 
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const {
+    data: parcels,
+    isLoading: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["parcels", searchParam],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/all-parcel?search=${searchParam}&from=${from}&to=${to}`
+      );
+      return data;
+    },
+  });
+
+  //   console.log(searchParam);
   // Update `filteredParcels` whenever `parcels` changes (initial load)
-  useEffect(() => {
-    if (JSON.stringify(filteredParcels) !== JSON.stringify(parcels)) {
-      setFilteredParcels(parcels);
-    }
-  }, [parcels]);
 
   // console.log(parcels);
   const getStatusBadgeColor = (status) => {
@@ -66,34 +78,35 @@ export default function AllParcel() {
   const handleSearch = async () => {
     if (fromDate && toDate) {
       try {
-        setSearchLoading(true);
         const from = new Date(fromDate).toISOString();
         const to = new Date(toDate).toISOString();
-
-        const response = await axiosSecure.get("/parcels/search", {
-          params: { from, to },
-        });
-        setSearchLoading(false);
-
-        setFilteredParcels(response.data);
-        // refetch()
+        if (from) {
+          setFrom(from);
+        }
+        if (to) {
+          setTo(to);
+        }
+        refetch();
       } catch (error) {
-        setSearchLoading(false);
-
         console.error("Error fetching filtered parcels:", error);
       }
     } else {
-      setSearchLoading(false);
       toast.error("Please select both From and To dates.");
     }
   };
-  if (loading || searchLoading) {
-    return (
-      <div className="flex flex-col  justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid"></div>
-      </div>
-    );
-  }
+  // if (loading || searchLoading) {
+  //   return (
+  //     <div className="flex flex-col  justify-center items-center min-h-screen">
+  //       <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-900 border-solid"></div>
+  //     </div>
+  //   );
+  // }
+  const handleClearFilter = () => {
+    setFrom("");
+    setTo("");
+    setSearchParam("");
+    refetch();
+  };
 
   return (
     <div className="container mx-auto  px-4 ">
@@ -105,34 +118,55 @@ export default function AllParcel() {
         <h1 className="text-2xl font-bold">Total Parcel: {parcels?.length}</h1>
 
         {/* Date Filter Section */}
-        <div className="flex flex-col md:flex-row md:items-end gap-2">
-          <div className="space-y-2">
-            <div className="flex gap-4">
-              {/* From Date */}
-              <div className="flex flex-col">
-                <label className="text-sm font-medium mb-1">From Date</label>
-                <Input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                  className="w-full sm:w-auto"
-                />
-              </div>
-              {/* To Date */}
-              <div className="flex flex-col">
-                <label className="text-sm font-medium mb-1">To Date</label>
-                <Input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                  className="w-full sm:w-auto"
-                />
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-end gap-2">
+            <div className="space-y-2">
+              <div className="flex gap-4">
+                {/* From Date */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium mb-1">From Date</label>
+                  <Input
+                    type="date"
+                    value={fromDate}
+                    onChange={(e) => setFromDate(e.target.value)}
+                    className="w-full sm:w-auto"
+                  />
+                </div>
+                {/* To Date */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium mb-1">To Date</label>
+                  <Input
+                    type="date"
+                    value={toDate}
+                    onChange={(e) => setToDate(e.target.value)}
+                    className="w-full sm:w-auto"
+                  />
+                </div>
               </div>
             </div>
+            <Button onClick={handleSearch} className="w-2/4 md:w-auto">
+              Search
+            </Button>
+            {from || to || searchParam ? (
+              <Button onClick={handleClearFilter} variant="destructive">
+                Clear Filter
+              </Button>
+            ) : (
+              <></>
+            )}
           </div>
-          <Button onClick={handleSearch} className="w-2/4 md:w-auto">
-            Search
-          </Button>
+          <div className="mt-4">
+            <div className="relative  w-full ">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+              <Input
+                value={searchParam}
+                onChange={(e) => setSearchParam(e.target.value)}
+                type="text"
+                placeholder="Search parcels..."
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="rounded-md border overflow-x-scroll mb-20">
@@ -161,7 +195,7 @@ export default function AllParcel() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredParcels?.map((parcel, index) => (
+              {parcels?.map((parcel, index) => (
                 <TableRow key={parcel._id}>
                   <TableCell className="font-medium">{parcel?.name}</TableCell>
                   <TableCell className="hidden md:table-cell">
