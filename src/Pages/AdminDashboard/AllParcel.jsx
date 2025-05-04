@@ -41,6 +41,7 @@ export default function AllParcel() {
 
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  
   const {
     data: parcels,
     isLoading: loading,
@@ -75,25 +76,6 @@ export default function AllParcel() {
   };
   const axiosSecure = useAxiosSecure();
 
-  const handleSearch = async () => {
-    if (fromDate && toDate) {
-      try {
-        const from = new Date(fromDate).toISOString();
-        const to = new Date(toDate).toISOString();
-        if (from) {
-          setFrom(from);
-        }
-        if (to) {
-          setTo(to);
-        }
-        refetch();
-      } catch (error) {
-        console.error("Error fetching filtered parcels:", error);
-      }
-    } else {
-      toast.error("Please select both From and To dates.");
-    }
-  };
   // if (loading || searchLoading) {
   //   return (
   //     <div className="flex flex-col  justify-center items-center min-h-screen">
@@ -119,10 +101,10 @@ export default function AllParcel() {
 
         {/* Date Filter Section */}
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="flex flex-col md:flex-row md:items-end gap-2">
+          {/* <div className="flex flex-col md:flex-row md:items-end gap-2">
             <div className="space-y-2">
               <div className="flex gap-4">
-                {/* From Date */}
+
                 <div className="flex flex-col">
                   <label className="text-sm font-medium mb-1">From Date</label>
                   <Input
@@ -132,7 +114,7 @@ export default function AllParcel() {
                     className="w-full sm:w-auto"
                   />
                 </div>
-                {/* To Date */}
+
                 <div className="flex flex-col">
                   <label className="text-sm font-medium mb-1">To Date</label>
                   <Input
@@ -154,7 +136,7 @@ export default function AllParcel() {
             ) : (
               <></>
             )}
-          </div>
+          </div> */}
           <div className="mt-4">
             <div className="relative  w-full ">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
