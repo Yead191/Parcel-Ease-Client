@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import { useQuery } from "react-query";
 import useManageParcel from "@/hooks/useManageParcel";
 
-export function ParcelModal({ value, status }) {
-  const [, , refetch] = useManageParcel();
+export function ParcelModal({ value, status, refetch }) {
+  // const [, , refetch] = useManageParcel();
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(null);
   const axiosSecure = useAxiosSecure();
