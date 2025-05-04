@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
@@ -30,13 +30,11 @@ const Navbar = () => {
   // };
   // console.log(user);
   const handleLogout = () => {
-    logOut()
-      .then(() => {
-        toast.success("Log Out Successful");
-      })
-      .catch((error) => {
-        toast.error({ error });
-      });
+    toast.promise(logOut(), {
+      loading: "Logging out...",
+      success: <b>Log out Successful!</b>,
+      error: (error) => <b>{error.message}</b>,
+    });
   };
 
   const links = (
